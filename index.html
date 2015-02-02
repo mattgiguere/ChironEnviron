@@ -26,8 +26,8 @@
   <div class="row">
   <div class="text-center">
     <div class='btn-group' role='group'>
-      <button type='button' class='btn btn-default'>Past Week</button>
-      <button type='button' class='btn btn-default active'>Past Month</button>
+      <button type='button' id='pastWeek' class='btn btn-default'>Past Week</button>
+      <button type='button' id='pastMonth' class='btn btn-default active'>Past Month</button>
       <div class='btn-group' role='group'>
         <button type='button' class="btn btn-default dropdown-toggle" data-toggle='dropdown' aria-expanded='false'>
           Custom Range
@@ -46,12 +46,12 @@
 <div class="container">
   <div class="row well">
     <!--d3 plot -->
-    <div class="col-sm-8 col-sm-offset-1 col-lg-8"></div>
+    <div id='d3-plot-window' class="col-sm-8 col-sm-offset-1 col-lg-8"></div>
   </div> <!-- well row -->
 </div>
 
 <div class="panel-group">
-  <div class="col-sm-3 col-sm-offset-1">
+  <div class="col-sm-2 col-sm-offset-3">
     <div class="panel panel-danger">
       <div class="panel-heading">
         <p class="panel-title">
@@ -61,7 +61,7 @@
           </a>
         </p>
       </div>
-      <div id="temperaturePanel" class="panel-collapse collapse">
+      <div id="temperaturePanel" class="panel-collapse collapse in">
         <div class="panel-body">
         <div class="btn-group-vertical btn-block" role='group' aria-label='Temperature button group'>
           <button type="button" class="btn btn-default btn-plotted">CCD</button>
@@ -79,7 +79,7 @@
       </div>
     </div><!--panel -->
   </div><!--/.col-md-3 -->
-  <div class="col-sm-3">
+  <div class="col-sm-2">
     <div class="panel panel-info">
       <div class="panel-heading">
         <p class="panel-title">
@@ -89,7 +89,7 @@
           </a>
         </p>
       </div> <!--heading -->
-      <div id="pressurePanel" class="panel-collapse collapse">
+      <div id="pressurePanel" class="panel-collapse collapse in">
         <div class="panel-body">
           <div class="btn-group-vertical btn-block" role='group' aria-label='Pressure button group'>
             <button type="button" class="btn btn-default info">Echelle</button>
@@ -100,7 +100,7 @@
       </div>
     </div><!--/panel -->
   </div><!--/.col-md-3 -->
-  <div class="col-sm-3">
+  <div class="col-sm-2">
     <div class="panel panel-success">
       <div class="panel-heading">
         <p class="panel-title">
@@ -110,13 +110,13 @@
           </a>
         </p>
       </div> <!--/heading -->
-      <div id="setpointPanel" class="panel-collapse collapse">
+      <div id="setpointPanel" class="panel-collapse collapse in">
         <div class="panel-body">
           <div class="btn-group-vertical btn-block" role='group' aria-label='Temperature button group'>
-            <button type="button" class="btn btn-default info">I2 Cell</button>
-            <button type="button" class="btn btn-default">Heater</button>
-            <button type="button" class="btn btn-default">Enclosure</button>
-            <button type="button" class="btn btn-default">Instrument</button>
+            <button type="button" class="btn btn-default btn-tps">I2 Cell</button>
+            <button type="button" class="btn btn-default btn-tps">Heater</button>
+            <button type="button" class="btn btn-default btn-tps">Enclosure</button>
+            <button type="button" class="btn btn-default btn-tps">Instrument</button>
           </div>
         </div>
       </div>
@@ -136,5 +136,6 @@
 
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <script src='js/bootstrap.min.js'></script>
+    <script src='js/environ.js'></script>
   </body>
 </html>
