@@ -298,7 +298,17 @@ function plotTempPress(param) {
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
                 .transition()
+                .duration(1000)
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+            contextpathgrp.selectAll("path")
+                .datum(data)
+                .attr("class", "area")
+                .attr("d", area2)
+                .transition()
                 .duration(1000);
+//                .data(data)
 
             contextpathgrp.select("path")
                 .remove();

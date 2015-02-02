@@ -54,19 +54,19 @@
 
     if ($smplRate =='Smpl-Daily') {
         $myquery = "
-        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 AND HOUR(sampleTime) < 1;
+        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-Hourly') {
         $myquery = "
-        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2;
+        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-All') {
         $myquery = "
-        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "';
+        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' ORDER BY sampleTime ASC;
         ";   
     }
 
