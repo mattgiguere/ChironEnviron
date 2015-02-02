@@ -1,0 +1,52 @@
+.features .glyphicon {
+  font-size: 32px;
+}
+
+body {
+  padding-bottom: 70px;
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  margin-top: 100px;
+}
+.footer {
+  color: #efefef;
+  background-color: #333;
+}
+.footer a {
+  color: #9af7fe;
+}
+
+.footer .glyphicon {
+  font-size: 14px;
+}
+
+.spacer {
+  margin-top: 40px;
+}
+
+.quote {
+  background-color: #444;
+  color: #e1e1e1;
+  margin: 2em 0;
+}
+.quote blockquote {
+  border: none;
+  margin: 0;
+}
+.quote footer {
+  color: #c1c1c1;
+}
+
+.btn-plotted {
+  font-weight: bold;
+  background-color: #DFF1D9;
+}
+
+.d3plotframe {
+  background-color: white;
+}
