@@ -116,6 +116,7 @@ function plotInitTempPress() {
             data.forEach(function(d) {
                 d.date = parseDate(d.date);
                 d.ydata = +d.ydata;
+                d.gratingTemp = +d.gratingTemp;
             });
             
             //console.log("Now in d3.json...");
