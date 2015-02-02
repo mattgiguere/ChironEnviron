@@ -29,6 +29,10 @@ body {
   margin-top: 40px;
 }
 
+.spacer-bottom {
+  margin-bottom: 150px;
+}
+
 .quote {
   background-color: #444;
   color: #e1e1e1;
