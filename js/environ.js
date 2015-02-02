@@ -17,7 +17,9 @@ $(document).ready(function () {
 
 //The default is to plot the past month:
 var endDate = new Date();
-var begDate = endDate.setDate(endDate.getDate() - 30);
+var begDate = new Date();
+begDate.setDate(endDate.getDate() - 30);
 
-
+console.log('beginning date: '+begDate);
+console.log('end date: '+endDate);
 
