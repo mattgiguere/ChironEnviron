@@ -103,6 +103,7 @@ var contextcircgrp = context.append("g");
 
 /* ***End D3 Global Variables*** */
 function plotInitTempPress() {
+    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate);
     d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate, function(error, data) {
         if (error) {
             console.log("There was an error loading the JSON blob.");
@@ -141,7 +142,7 @@ function plotInitTempPress() {
                 .enter()
                 .append("circle")
                 .attr("class", "tabcen dot")
-                .attr('r', 3.5)
+                .attr('r', 2.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
                 .on('mouseover', tip.show)

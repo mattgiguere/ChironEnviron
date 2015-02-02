@@ -51,7 +51,7 @@
     }
 
         $myquery = "
-    SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "';
+    SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2;
     ";   
 
     $query = mysql_query($myquery);
