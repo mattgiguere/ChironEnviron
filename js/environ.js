@@ -3,7 +3,25 @@ $(document).ready(function () {
 
         $(this).toggleClass('btn-plotted');
         var clickedTP = $(this).attr('id');
+        if (clickedTP == 'tableTempCen') { plotTableCenterTemp = 1 - plotTableCenterTemp; }
         if (clickedTP == 'gratingTemp') { plotGratingTemp = 1 - plotGratingTemp; }
+        if (clickedTP == 'enclosureTemp') { plotEnclosureTemp = 1 - plotEnclosureTemp; }
+        if (clickedTP == 'iodineTemp') { plotIodineCellTemp = 1 - plotIodineCellTemp; }
+        if (clickedTP == 'enclosureSetpoint') { plotEnclosureSetpoint = 1 - plotEnclosureSetpoint; }
+        if (clickedTP == 'i2Setpoint') { plotIodineCellSetpoint = 1 - plotIodineCellSetpoint; }
+        if (clickedTP == 'enclosureTemp2') { plotEnclosureTemp2 = 1 - plotEnclosureTemp2; }
+        if (clickedTP == 'tableTempLow') { plotTableTempLow = 1 - plotTableTempLow; }
+        if (clickedTP == 'structureTemp') { plotStructureTemp = 1 - plotStructureTemp; }
+        if (clickedTP == 'instrumentSetpoint') { plotInstrumentSetpoint = 1 - plotInstrumentSetpoint; }
+        if (clickedTP == 'instrumentTemp') { plotInstrumentTemp = 1 - plotInstrumentTemp; }
+        if (clickedTP == 'coudeTemp') { plotCoudeTemp = 1 - plotCoudeTemp; }
+        if (clickedTP == 'heaterSetpoint') { plotHeaterSetpoint = 1 - plotHeaterSetpoint; }
+        if (clickedTP == 'barometerPress') { plotBarometer = 1 - plotBarometer; }
+        if (clickedTP == 'echellePress') { plotEchellePressure = 1 - plotEchellePressure; }
+        if (clickedTP == 'ccdTemp') {  plotCcdTemp = 1 - plotCcdTemp; }
+        if (clickedTP == 'neckTemp') {  plotNeckTemp = 1 - plotNeckTemp; }
+        if (clickedTP == 'ccdTemp') {  plotCcdSetpoint = 1 - plotCcdSetpoint; }
+
         plotTempPress();
     });
     //the sampling rates
