@@ -11,17 +11,17 @@ var margin = {top: 10, right: 10, bottom: 100, left: 40},
     height2 = 500 - margin2.top - margin2.bottom;
 
 //make a responsize width:
-var width = parseInt(d3.select(".d3").style('width'), 10) - margin.left - margin.right;
+var width = parseInt(d3.select("#d3-plot-window").style('width'), 10) - margin.left - margin.right;
 
 
 //calculate fractional padding:
-var fpad = padding/100.
+var fpad = padding/100;
 
 // Parse the date / time
 //This is the line for the CSV
 //var parseDate = d3.time.format("%d-%b-%y").parse;
 //This is the line for data from the DB
-var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%S.%L").parse;
+var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
 
 // Set the ranges
 var xScale = d3.time.scale().range([0, width]);
@@ -34,10 +34,8 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<p><strong>Object:</strong> <span style='color:#428BCA'>" + d.objectnm + "</span></p>" +
-            "<p><strong>Obnm:</strong> <span style='color:#428BCA'>" + d.obnm + "</span></p>" + 
-            "<p><strong>RV:</strong> <span style='color:#428BCA'>" + d.ydata + "</span></p>" +
-            "<p><strong>SNR:</strong> <span style='color:#428BCA'>" + Math.round(d.snr*10)/10 + "</span></p>";
+    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
+            "<p><strong>Value:</strong> <span style='color:#428BCA'>" + d.ydata + "</span></p>";
   });
 
 // Define the axes
@@ -65,21 +63,21 @@ var area = d3.svg.area()
     .interpolate("linear")
     .x(function(d) { return xScale(d.date); })
     .y0(height)
-    .y1(function(d) { return yScale(d.ydata); })
+    .y1(function(d) { return yScale(d.ydata); });
 
 var area2 = d3.svg.area()
     .interpolate("linear")
     .x(function(d) { return xScale2(d.date); })
     .y0(height2)
-    .y1(function(d) { return yScale2(d.ydata); })
+    .y1(function(d) { return yScale2(d.ydata); });
 
 /*Add the svg canvas to the "d3" class div on the page.
 The "d3" div is just a marker location so that I could
 put the plot where I wanted it within the HTML.*/
-var svg = d3.select(".d3")
+var svg = d3.select("#d3-plot-window")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("height", height + margin.top + margin.bottom);
 
 svg.call(tip);
 
@@ -87,7 +85,7 @@ svg.append("defs").append("clipPath")
     .attr("id", "clip")
     .append("rect")
     .attr("width", width)
-    .attr("height", height)
+    .attr("height", height);
 
 var focus = svg.append("g")
     .attr("class", "focus")
@@ -102,19 +100,6 @@ var focuspathgrp = focus.append("g");
 var focuscircgrp = focus.append("g");
 var contextpathgrp = context.append("g");
 var contextcircgrp = context.append("g");
-
-//add observations to table:
-var table = d3.select("#table-of-observations")
-    .append('table')
-    .attr("class", "table table-striped");
-
-var thead = table.append("thead");
-thead.append("th").text("Observation Name");
-thead.append("th").text("Object Name");
-thead.append("th").text("Date");
-var newcolhead = thead.append("th").text('mnvel');
-
-var tbody = table.append('tbody');
 
 /* ***End D3 Global Variables*** */
 function makeInitTimeSeriesPlot() {
@@ -250,12 +235,13 @@ function type(d) {
 }
 
 function plotTempPress(param) {
-    var tblnm = determineTable(param);
-    d3.json("php/getNewData.php?param="+param+"&tablenm="+tblnm+"&objectnm="+objectNm, function(error, data) {
+    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate);
+    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate, function(error, data) {
         if (error) {
             console.log("There was an error loading the JSON blob.");
-            console.log("The parameter passed to getNewData.php was:");
-            console.log(param);
+            console.log("The dates passed to getNewData.php were:");
+            console.log(begDate);
+            console.log(endDate);
             console.log(error);
         } else {
 
@@ -296,7 +282,7 @@ function plotTempPress(param) {
                 .transition()
                 .duration(1000)
                 .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.ydata); })
+                .attr('cy', function(d) { return yScale(d.ydata); });
 
             focuscircgrp.selectAll(".dot")
                 .data(data)
@@ -315,7 +301,7 @@ function plotTempPress(param) {
                 .duration(1000);
 
             contextpathgrp.select("path")
-                .remove()
+                .remove();
             
             contextpathgrp
                 .append('path')
@@ -329,7 +315,7 @@ function plotTempPress(param) {
                 .transition()
                 .duration(1000)
                 .attr('cx', function(d) { return xScale2(d.date); })
-                .attr('cy', function(d) { return yScale2(d.ydata); })
+                .attr('cy', function(d) { return yScale2(d.ydata); });
 
             contextcircgrp.selectAll(".dot")
                 .data(data)
@@ -377,37 +363,6 @@ function plotTempPress(param) {
                 //.attr("x", width)
                 .style("text-anchor", "end")
                 .text('mnvel');
-
-            /**************************************/
-            /* ***** UPDATE TABLE AT BOTTOM ***** */
-            /**************************************/
-
-            //update the column header in the table:
-            newcolhead
-                .transition()
-                .duration(1000)
-                .text(param)
-
-            //create the rows that have all the 
-            //data in __data__:
-            var trs = tbody.selectAll('tr')
-                .data(data);
-
-            trs.exit().remove();
-
-            trs.enter().append('tr');
-
-            //Update the columns:
-            var tds = trs.selectAll('td')
-                        .data(function(d) { return [d.obnm, d.objectnm, d.date, d3.round(d.ydata,2)];});
-
-            //remove old columns:
-            tds.exit().remove();
-
-            //add new columns:
-            tds.enter().append('td');
-
-            tds.text(function(d) { return d;})
 
         }
 
