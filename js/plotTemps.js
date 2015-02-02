@@ -1055,11 +1055,12 @@ function plotTempPress(param) {
             }
             //end of 18
 
-
-            legend = svg.append("g")
-              .attr("class","legend")
-              .attr("transform","translate(90,30)")
-              .call(d3.legend);
+            if (plotLegend) {
+                legend = svg.append("g")
+                  .attr("class","legend")
+                  .attr("transform","translate(90,30)")
+                  .call(d3.legend);
+            }
 
             contextpathgrp.selectAll("path")
                 .datum(data)

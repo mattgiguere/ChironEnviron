@@ -48,8 +48,7 @@ $(document).ready(function () {
         if (!$this.hasClass('active-legend')) {
             $this.addClass('active-legend');
         }
-        console.log($(this).attr('id'));
-        smplrate = $(this).attr('id');
+        plotLegend = 1 - plotLegend;
         plotTempPress();
 
     });
@@ -128,6 +127,7 @@ var begDateObj = moment();
 begDateObj.days(-7);
 
 //The default values to plot:
+var plotLegend = 1;
 var plotGratingTemp = 1;
 var plotTableCenterTemp = 1;
 var plotEnclosureTemp = 0;
