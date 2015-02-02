@@ -2,7 +2,9 @@ $(document).ready(function () {
     $('.btn-tps').click(function() {
 
         $(this).toggleClass('btn-plotted');
-
+        var clickedTP = $(this).attr('id');
+        if (clickedTP == 'gratingTemp') { plotGratingTemp = 1 - plotGratingTemp; }
+        plotTempPress();
     });
     //the sampling rates
     $('.smpl-opt').click(function() {
@@ -95,17 +97,17 @@ begDateObj.days(-7);
 //The default values to plot:
 var plotGratingTemp = 1;
 var plotTableCenterTemp = 1;
-var plotEnclosureTemp = 1;
+var plotEnclosureTemp = 0;
 var plotIodineCellTemp = 0;
 var plotEnclosureSetpoint = 0;
 var plotIodineCellSetpoint = 0;
-var plotEnclosureTemp2 = 1;
-var plotTableTempLow = 1;
-var plotStructureTemp = 1;
-var plotInstrumentSetpoint = 1;
-var plotInstrumentTemp = 1;
-var plotCoudeTemp = 1;
-var plotHeaterSetpoint = 1;
+var plotEnclosureTemp2 = 0;
+var plotTableTempLow = 0;
+var plotStructureTemp = 0;
+var plotInstrumentSetpoint = 0;
+var plotInstrumentTemp = 0;
+var plotCoudeTemp = 0;
+var plotHeaterSetpoint = 0;
 var plotBarometer = 0;
 var plotEchellePressure = 0;
 var plotCcdTemp = 0;

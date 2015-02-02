@@ -126,7 +126,7 @@ function plotInitTempPress() {
             // Scale the range of the data
             xScale.domain(d3.extent(data, function(d) { return d.date; }));
             yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
-                d3.max(data, function(d) { return d.ydata; })]);
+                d3.max(data, function(d) { return getMaxValue(d); })]);
             xScale2.domain(xScale.domain());
             yScale2.domain(yScale.domain());
             
@@ -142,17 +142,19 @@ function plotInitTempPress() {
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);
 
-            focuscircgrp.selectAll(".gratingTemp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "gratingTemp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.gratingTemp); })
-                .attr("data-legend",function(d) { return 'Grating Temp'; })
-                .on('mouseover', tip.show)
-                .on('mouseout', tip.hide);
+            if (plotGratingTemp) {
+                focuscircgrp.selectAll(".gratingTemp.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "gratingTemp dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.gratingTemp); })
+                    .attr("data-legend",function(d) { return 'Grating Temp'; })
+                    .on('mouseover', tip.show)
+                    .on('mouseout', tip.hide);
+            }
 
             var xAxisSVG = focus.append("g")
                 .attr("class", "x axis")
@@ -253,7 +255,7 @@ function plotTempPress(param) {
             // Scale the range of the data
             xScale.domain(d3.extent(data, function(d) { return d.date; }));
             yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
-                d3.max(data, function(d) { return d.ydata; })]);
+                d3.max(data, function(d) { return getMaxValue(d); })]);
             xScale2.domain(xScale.domain());
             yScale2.domain(yScale.domain());
 
@@ -275,7 +277,10 @@ function plotTempPress(param) {
             */
             //focus.select(".area").attr("d", area);
 
+            //////////////////////////////////////////////////
             //Update all focus data points:
+            //////////////////////////////////////////////////
+            //1. TableCenterTemp
             focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .transition()
@@ -296,10 +301,42 @@ function plotTempPress(param) {
                 .attr('r', 2.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+
+            //2. GratingTemp
+            if (plotGratingTemp) {
+            focuscircgrp.selectAll(".gratingTemp.dot")
+                .data(data)
                 .transition()
                 .duration(1000)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.gratingTemp); });
+
+            focuscircgrp.selectAll(".gratingTemp.dot")
+                .data(data)
+                .exit()
+                .remove();
+
+            focuscircgrp.selectAll(".gratingTemp.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "gratingTemp dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.gratingTemp); })
                 .on('mouseover', tip.show)
-                .on('mouseout', tip.hide);
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".gratingTemp.dot")
+                    .data(data)
+                    .remove();
+            }
 
             contextpathgrp.selectAll("path")
                 .datum(data)
@@ -400,6 +437,30 @@ function getMinValue(d) {
     if (plotCcdSetpoint) { newmin = (newmin < d.ccdSetpoint) ? newmin : d.ccdSetpoint; }
 
     return newmin;
+}
+
+function getMaxValue(d) {
+    var newmax = 1e6;
+    if (plotTableCenterTemp) { newmax = d.ydata; }
+    if (plotGratingTemp) { newmax = (newmax > d.gratingTemp) ? newmax : d.gratingTemp; }
+    if (plotEnclosureTemp) { newmax = (newmax > d.enclosureTemp) ? newmax : d.enclosureTemp; }
+    if (plotIodineCellTemp) { newmax = (newmax > d.enclosureTemp) ? newmax : d.enclosureTemp; }
+    if (plotEnclosureSetpoint) { newmax = (newmax > d.enclosureSetpoint) ? newmax : d.enclosureSetpoint; }
+    if (plotIodineCellSetpoint) { newmax = (newmax > d.iodineCellSetpoint) ? newmax : d.iodineCellSetpoint; }
+    if (plotEnclosureTemp2) { newmax = (newmax > d.enclosureTemp2) ? newmax : d.enclosureTemp2; }
+    if (plotTableTempLow) { newmax = (newmax > d.tableTempLow) ? newmax : d.tableTempLow; }
+    if (plotStructureTemp) { newmax = (newmax > d.structureTemp) ? newmax : d.structureTemp; }
+    if (plotInstrumentSetpoint) { newmax = (newmax > d.instrumentSetpoint) ? newmax : d.instrumentSetpoint; }
+    if (plotInstrumentTemp) { newmax = (newmax > d.instrumentTemp) ? newmax : d.instrumentTemp; }
+    if (plotCoudeTemp) { newmax = (newmax > d.coudeTemp) ? newmax : d.coudeTemp; }
+    if (plotHeaterSetpoint) { newmax = (newmax > d.heaterSetpoint) ? newmax : d.heaterSetpoint; }
+    if (plotBarometer) { newmax = (newmax > d.barometer) ? newmax : d.barometer; }
+    if (plotEchellePressure) { newmax = (newmax > d.echellePressure) ? newmax : d.echellePressure; }
+    if (plotCcdTemp) { newmax = (newmax > d.ccdTemp) ? newmax : d.ccdTemp; }
+    if (plotNeckTemp) { newmax = (newmax > d.neckTemp) ? newmax : d.neckTemp; }
+    if (plotCcdSetpoint) { newmax = (newmax > d.ccdSetpoint) ? newmax : d.ccdSetpoint; }
+
+    return newmax;
 }
 
 function addAxes() {
