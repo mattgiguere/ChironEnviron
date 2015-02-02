@@ -261,7 +261,7 @@ function plotTempPress(param) {
 
             //Remove the legend to start fresh:
             legend.selectAll('g').remove();
-            
+
             /*
             focuspathgrp.select('path')
                 .remove()
@@ -284,6 +284,7 @@ function plotTempPress(param) {
             //Update all focus data points:
             //////////////////////////////////////////////////
             //1. TableCenterTemp
+            if (plotTableCenterTemp) {
             focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .transition()
@@ -309,6 +310,11 @@ function plotTempPress(param) {
                 .on('mouseout', tip.hide)
                 .transition()
                 .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".tabcen.dot")
+                    .data(data)
+                    .remove();
+                }
 
             //2. GratingTemp
             if (plotGratingTemp) {
@@ -450,7 +456,7 @@ function getMinValue(d) {
 }
 
 function getMaxValue(d) {
-    var newmax = 1e6;
+    var newmax = 0;
     if (plotTableCenterTemp) { newmax = d.ydata; }
     if (plotGratingTemp) { newmax = (newmax > d.gratingTemp) ? newmax : d.gratingTemp; }
     if (plotEnclosureTemp) { newmax = (newmax > d.enclosureTemp) ? newmax : d.enclosureTemp; }
