@@ -16,11 +16,14 @@ $(document).ready(function () {
 });
 
 //The default is to plot the past month:
-var endDate = moment();
-var begDate = moment();
-begDate = endDate.month(-1);
+var endDateObj = moment();
+var begDateObj = moment();
+begDateObj.day(-2);
 
-console.log('beginning date: '+begDate.format('YYYY-MM-DD HH:mm:ss'));
+var begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+var endDate = endDateObj.format('YYYY-MM-DDTHH:mm:ss');
+
+console.log('beginning date: '+begDate);
 //returns: beginning date: 2014-12-01 21:03:08
-console.log('end date: '+endDate.format('YYYY-MM-DD HH:mm:ss'));
+console.log('end date: '+endDate);
 //returns end date: 2014-12-01 21:03:08
