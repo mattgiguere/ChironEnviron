@@ -70,6 +70,51 @@
   fill: #982023;
 }
 
+.tabTmpLow {
+  fill: #C4D1D0;
+}
+
+/* --- edit below --*/
+
+.strctrTemp {
+  fill: #3F4053;
+}
+
+.instrmntStpt {
+  fill: #46959E;
+}
+
+.coudeTmp {
+  fill: #0164CC;
+}
+
+.heaterStpt {
+  fill: #ED6C49;
+}
+
+.barometer {
+  fill: #75BEBB;
+  stroke: none;
+}
+
+.echpres {
+  fill: #AAD4D9;
+}
+
+.ccdTmp {
+  fill: #F9F1DB;
+}
+
+.nckTmp {
+  fill: #C4D1D0;
+}
+
+.ccdStpt {
+  fill: #DFF1D9;
+}
+
+/* --- edit above --*/
+
 .extent {
   fill: #000;
   fill-opacity: .125;
