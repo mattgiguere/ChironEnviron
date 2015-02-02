@@ -51,16 +51,3 @@ body {
 .quote footer {
   color: #c1c1c1;
 }
-
-.btn-plotted {
-  font-weight: bold;
-  background-color: #DFF1D9;
-}
-
-.d3plotframe {
-  background-color: white;
-}
-
-.active-sampling {
-  background-color: #DFF1D9;
-}
