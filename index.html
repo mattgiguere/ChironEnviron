@@ -4,6 +4,7 @@
     <title>CHIRON Environment</title>
     <link href='css/bootstrap.min.css' rel='stylesheet'>
     <link href='css/main.css' rel='stylesheet'>
+    <link href='css/stylesheet.css' rel='stylesheet'>
   </head>
 
   <!-- body -->
@@ -44,10 +45,14 @@
 </div>
 
 <div class="container">
-  <div class="row well">
+  <div class="row d3-window">
     <!--d3 plot -->
-    <div id='d3-plot-window' class="col-sm-8 col-sm-offset-1 col-lg-8"></div>
+    <div class='d3-plot-window'></div>
   </div> <!-- well row -->
+</div>
+
+<div class="container">
+  <div class="row spacer hidden-xs"></div>
 </div>
 
 <div class="panel-group">
@@ -123,6 +128,12 @@
     </div><!--panel -->
   </div><!--/.col-md-3 -->
 </div><!--/.panel-group -->
+
+
+<div class="container">
+  <div class="row spacer-bottom"></div>
+</div>
+
 
 <!-- footer -->
 <div class='footer navbar navbar-fixed-bottom'>
