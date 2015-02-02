@@ -37,7 +37,14 @@
 
 .tabcen {
   fill: #111143;
-  stroke: #555;
+  /*stroke: #555;*/
+  stroke: none;
+}
+
+.gratingTemp {
+  fill: #999;
+  /*stroke: #555;*/
+  stroke: none;
 }
 
 .enclTemp {
