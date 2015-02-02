@@ -125,18 +125,10 @@ function plotInitTempPress() {
 
             // Scale the range of the data
             xScale.domain(d3.extent(data, function(d) { return d.date; }));
-            yScale.domain([d3.min(data, function(d) { return d.ydata; }), 
+            yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
                 d3.max(data, function(d) { return d.ydata; })]);
             xScale2.domain(xScale.domain());
             yScale2.domain(yScale.domain());
-
-            /*
-            focuspathgrp.append("path")
-                .datum(data)
-                .attr("class", "area")
-                .attr("d", area);
-            */
-            
             
             focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
@@ -147,6 +139,18 @@ function plotInitTempPress() {
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
                 .attr("data-legend",function(d) { return 'Table Center'; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
+
+            focuscircgrp.selectAll(".gratingTemp.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "gratingTemp dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.gratingTemp); })
+                .attr("data-legend",function(d) { return 'Grating Temp'; })
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);
 
@@ -207,11 +211,6 @@ function plotInitTempPress() {
             legend = svg.append("g")
               .attr("class","legend")
               .attr("transform","translate(90,30)")
-              .style("font-size","12px")
-              .style("fill-opacity",".125")
-              .style("border-width","1px")
-              .style("border-style","solid")
-              .style("border-radius","10px")
               .call(d3.legend);
 
         }
@@ -253,7 +252,7 @@ function plotTempPress(param) {
 
             // Scale the range of the data
             xScale.domain(d3.extent(data, function(d) { return d.date; }));
-            yScale.domain([d3.min(data, function(d) { return d.ydata; }), 
+            yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
                 d3.max(data, function(d) { return d.ydata; })]);
             xScale2.domain(xScale.domain());
             yScale2.domain(yScale.domain());
@@ -377,6 +376,30 @@ function plotTempPress(param) {
         }
 
     });
+}
+
+function getMinValue(d) {
+    var newmin = 1e6;
+    if (plotTableCenterTemp) { newmin = d.ydata; }
+    if (plotGratingTemp) { newmin = (newmin < d.gratingTemp) ? newmin : d.gratingTemp; }
+    if (plotEnclosureTemp) { newmin = (newmin < d.enclosureTemp) ? newmin : d.enclosureTemp; }
+    if (plotIodineCellTemp) { newmin = (newmin < d.enclosureTemp) ? newmin : d.enclosureTemp; }
+    if (plotEnclosureSetpoint) { newmin = (newmin < d.enclosureSetpoint) ? newmin : d.enclosureSetpoint; }
+    if (plotIodineCellSetpoint) { newmin = (newmin < d.iodineCellSetpoint) ? newmin : d.iodineCellSetpoint; }
+    if (plotEnclosureTemp2) { newmin = (newmin < d.enclosureTemp2) ? newmin : d.enclosureTemp2; }
+    if (plotTableTempLow) { newmin = (newmin < d.tableTempLow) ? newmin : d.tableTempLow; }
+    if (plotStructureTemp) { newmin = (newmin < d.structureTemp) ? newmin : d.structureTemp; }
+    if (plotInstrumentSetpoint) { newmin = (newmin < d.instrumentSetpoint) ? newmin : d.instrumentSetpoint; }
+    if (plotInstrumentTemp) { newmin = (newmin < d.instrumentTemp) ? newmin : d.instrumentTemp; }
+    if (plotCoudeTemp) { newmin = (newmin < d.coudeTemp) ? newmin : d.coudeTemp; }
+    if (plotHeaterSetpoint) { newmin = (newmin < d.heaterSetpoint) ? newmin : d.heaterSetpoint; }
+    if (plotBarometer) { newmin = (newmin < d.barometer) ? newmin : d.barometer; }
+    if (plotEchellePressure) { newmin = (newmin < d.echellePressure) ? newmin : d.echellePressure; }
+    if (plotCcdTemp) { newmin = (newmin < d.ccdTemp) ? newmin : d.ccdTemp; }
+    if (plotNeckTemp) { newmin = (newmin < d.neckTemp) ? newmin : d.neckTemp; }
+    if (plotCcdSetpoint) { newmin = (newmin < d.ccdSetpoint) ? newmin : d.ccdSetpoint; }
+
+    return newmin;
 }
 
 function addAxes() {

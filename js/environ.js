@@ -92,6 +92,28 @@ var endDateObj = moment();
 var begDateObj = moment();
 begDateObj.days(-7);
 
+//The default values to plot:
+var plotGratingTemp = 1;
+var plotTableCenterTemp = 1;
+var plotEnclosureTemp = 1;
+var plotIodineCellTemp = 0;
+var plotEnclosureSetpoint = 0;
+var plotIodineCellSetpoint = 0;
+var plotEnclosureTemp2 = 1;
+var plotTableTempLow = 1;
+var plotStructureTemp = 1;
+var plotInstrumentSetpoint = 1;
+var plotInstrumentTemp = 1;
+var plotCoudeTemp = 1;
+var plotHeaterSetpoint = 1;
+var plotBarometer = 0;
+var plotEchellePressure = 0;
+var plotCcdTemp = 0;
+var plotNeckTemp = 0;
+var plotCcdSetpoint = 0;
+
+
+
 //default sampling:
 var smplrate='Smpl-Hourly';
 
