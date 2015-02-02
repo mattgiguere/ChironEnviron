@@ -308,6 +308,76 @@ function plotInitTempPress() {
                     .on('mouseout', grtip.hide);
             }
 
+            if (plotEnclosureSetpoint) {
+                focuscircgrp.selectAll(".enclStpt.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "enclStpt dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.enclosureSetpoint); })
+                    .attr("data-legend", function(d) { return 'Enclosure Setpoint'; })
+                    .on('mouseover', enclsptip.show)
+                    .on('mouseout', enclsptip.hide);
+            }
+
+            if (plotTableTempLow) {
+                focuscircgrp.selectAll(".tabTmpLow.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "tabTmpLow dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.tableTempLow); })
+                    .attr("data-legend", function(d) { return 'Table Temp Low'; })
+                    .on('mouseover', ttlowtip.show)
+                    .on('mouseout', ttlowtip.hide);
+            }
+
+            if (plotStructureTemp) {
+                focuscircgrp.selectAll(".strctrTemp.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "strctrTemp dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.structureTemp); })
+                    .attr("data-legend", function(d) { return 'Structure Temp'; })
+                    .on('mouseover', strtip.show)
+                    .on('mouseout', strtip.hide);
+            }
+
+            if (plotInstrumentSetpoint) {
+                focuscircgrp.selectAll(".instrmntStpt.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "instrmntStpt dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.instrumentSetpoint); })
+                    .attr("data-legend", function(d) { return 'Instrument Setpoint'; })
+                    .on('mouseover', instsptip.show)
+                    .on('mouseout', instsptip.hide);
+            }
+
+            if (plotInstrumentTemp) {
+                focuscircgrp.selectAll(".instrmntTmp.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "instrmntTmp dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.instrumentTemp); })
+                    .attr("data-legend", function(d) { return 'Instrument Temp'; })
+                    .on('mouseover', instrmntTmptip.show)
+                    .on('mouseout', instrmntTmptip.hide);
+            }
+
             var xAxisSVG = focus.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
@@ -367,6 +437,8 @@ function plotInitTempPress() {
                   .attr("class","legend")
                   .attr("transform","translate(90,30)")
                   .call(d3.legend);
+            } else {
+                legend = svg.append("g");
             }
 
         }
