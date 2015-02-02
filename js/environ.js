@@ -127,7 +127,7 @@ var begDateObj = moment();
 begDateObj.days(-7);
 
 //The default values to plot:
-var plotLegend = 1;
+var plotLegend = 0;
 var plotGratingTemp = 1;
 var plotTableCenterTemp = 1;
 var plotEnclosureTemp = 0;

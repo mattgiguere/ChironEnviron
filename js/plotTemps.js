@@ -362,10 +362,12 @@ function plotInitTempPress() {
                 .attr("y", -6)
                 .attr("height", height2 + 7);
 
-            legend = svg.append("g")
-              .attr("class","legend")
-              .attr("transform","translate(90,30)")
-              .call(d3.legend);
+            if (plotLegend) {
+                legend = svg.append("g")
+                  .attr("class","legend")
+                  .attr("transform","translate(90,30)")
+                  .call(d3.legend);
+            }
 
         }
     });
