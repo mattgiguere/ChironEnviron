@@ -151,7 +151,7 @@ function plotInitTempPress() {
                     .attr('r', 2.5)
                     .attr('cx', function(d) { return xScale(d.date); })
                     .attr('cy', function(d) { return yScale(d.gratingTemp); })
-                    .attr("data-legend",function(d) { return 'Grating Temp'; })
+                    .attr("data-legend", function(d) { return 'Grating Temp'; })
                     .on('mouseover', tip.show)
                     .on('mouseout', tip.hide);
             }
@@ -259,6 +259,9 @@ function plotTempPress(param) {
             xScale2.domain(xScale.domain());
             yScale2.domain(yScale.domain());
 
+            //Remove the legend to start fresh:
+            legend.selectAll('g').remove();
+            
             /*
             focuspathgrp.select('path')
                 .remove()
@@ -301,6 +304,7 @@ function plotTempPress(param) {
                 .attr('r', 2.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
+                .attr("data-legend",function(d) { return 'Grating Temp'; })
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
                 .transition()
@@ -328,6 +332,7 @@ function plotTempPress(param) {
                 .attr('r', 2.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.gratingTemp); })
+                .attr("data-legend", function(d) { return 'Grating Temp'; })
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide)
                 .transition()
@@ -337,6 +342,11 @@ function plotTempPress(param) {
                     .data(data)
                     .remove();
             }
+
+            legend = svg.append("g")
+              .attr("class","legend")
+              .attr("transform","translate(90,30)")
+              .call(d3.legend);
 
             contextpathgrp.selectAll("path")
                 .datum(data)
