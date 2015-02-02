@@ -504,7 +504,7 @@ function getMinValue(d) {
     if (plotTableCenterTemp) { newmin = d.ydata; }
     if (plotGratingTemp) { newmin = (newmin < d.gratingTemp) ? newmin : d.gratingTemp; }
     if (plotEnclosureTemp) { newmin = (newmin < d.enclosureTemp) ? newmin : d.enclosureTemp; }
-    if (plotIodineCellTemp) { newmin = (newmin < d.enclosureTemp) ? newmin : d.enclosureTemp; }
+    if (plotIodineCellTemp) { newmin = (newmin < d.iodineCellTemp) ? newmin : d.iodineCellTemp; }
     if (plotEnclosureSetpoint) { newmin = (newmin < d.enclosureSetpoint) ? newmin : d.enclosureSetpoint; }
     if (plotIodineCellSetpoint) { newmin = (newmin < d.iodineCellSetpoint) ? newmin : d.iodineCellSetpoint; }
     if (plotEnclosureTemp2) { newmin = (newmin < d.enclosureTemp2) ? newmin : d.enclosureTemp2; }
