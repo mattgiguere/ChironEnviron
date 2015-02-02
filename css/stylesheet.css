@@ -38,7 +38,16 @@
 .tabcen {
   fill: #111143;
   stroke: #555;
+}
 
+.enclTemp {
+  fill: #AF855F;
+  stroke: #555;
+}
+
+.iodTemp {
+  fill: #DFF1D9;
+  stroke: #555;
 }
 
 .extent {

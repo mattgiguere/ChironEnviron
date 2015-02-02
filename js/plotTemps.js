@@ -349,6 +349,74 @@ function plotTempPress(param) {
                     .remove();
             }
 
+            //3. EnclosureTemp
+            if (plotEnclosureTemp) {
+            focuscircgrp.selectAll(".enclTemp.dot")
+                .data(data)
+                .transition()
+                .duration(1000)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.enclosureTemp); });
+
+            focuscircgrp.selectAll(".enclTemp.dot")
+                .data(data)
+                .exit()
+                .remove();
+
+            focuscircgrp.selectAll(".enclTemp.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "enclTemp dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.enclosureTemp); })
+                .attr("data-legend", function(d) { return 'Enclosure Temp'; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".enclTemp.dot")
+                    .data(data)
+                    .remove();
+            }
+
+            //4. IodineTemp
+            if (plotIodineCellTemp) {
+            focuscircgrp.selectAll(".iodTemp.dot")
+                .data(data)
+                .transition()
+                .duration(1000)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.iodineCellTemp); });
+
+            focuscircgrp.selectAll(".iodTemp.dot")
+                .data(data)
+                .exit()
+                .remove();
+
+            focuscircgrp.selectAll(".iodTemp.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "iodTemp dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.iodineCellTemp); })
+                .attr("data-legend", function(d) { return 'Iodine Temp'; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".iodTemp.dot")
+                    .data(data)
+                    .remove();
+            }
+
+
+
             legend = svg.append("g")
               .attr("class","legend")
               .attr("transform","translate(90,30)")
@@ -460,7 +528,7 @@ function getMaxValue(d) {
     if (plotTableCenterTemp) { newmax = d.ydata; }
     if (plotGratingTemp) { newmax = (newmax > d.gratingTemp) ? newmax : d.gratingTemp; }
     if (plotEnclosureTemp) { newmax = (newmax > d.enclosureTemp) ? newmax : d.enclosureTemp; }
-    if (plotIodineCellTemp) { newmax = (newmax > d.enclosureTemp) ? newmax : d.enclosureTemp; }
+    if (plotIodineCellTemp) { newmax = (newmax > d.iodineCellTemp) ? newmax : d.iodineCellTemp; }
     if (plotEnclosureSetpoint) { newmax = (newmax > d.enclosureSetpoint) ? newmax : d.enclosureSetpoint; }
     if (plotIodineCellSetpoint) { newmax = (newmax > d.iodineCellSetpoint) ? newmax : d.iodineCellSetpoint; }
     if (plotEnclosureTemp2) { newmax = (newmax > d.enclosureTemp2) ? newmax : d.enclosureTemp2; }
