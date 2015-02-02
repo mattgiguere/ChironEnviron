@@ -4,14 +4,14 @@ and updateTimePlot()
 */
 
 // Set the dimensions of the canvas / graph
-var margin = {top: 10, right: 10, bottom: 100, left: 40},
-    margin2 = {top:430, right: 10, bottom: 20, left:40},
+var margin = {top: 10, right: 10, bottom: 100, left: 60},
+    margin2 = {top:430, right: 10, bottom: 20, left:60},
     padding = {top:5, right:5, bottom:20, left: 20},
     height = 500 - margin.top - margin.bottom,
     height2 = 500 - margin2.top - margin2.bottom;
 
 //make a responsize width:
-var width = parseInt(d3.select("#d3-plot-window").style('width'), 10) - margin.left - margin.right;
+var width = parseInt(d3.select(".d3-plot-window").style('width'), 10) - margin.left - margin.right;
 
 
 //calculate fractional padding:
@@ -74,7 +74,7 @@ var area2 = d3.svg.area()
 /*Add the svg canvas to the "d3" class div on the page.
 The "d3" div is just a marker location so that I could
 put the plot where I wanted it within the HTML.*/
-var svg = d3.select("#d3-plot-window")
+var svg = d3.select(".d3-plot-window")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
@@ -102,12 +102,13 @@ var contextpathgrp = context.append("g");
 var contextcircgrp = context.append("g");
 
 /* ***End D3 Global Variables*** */
-function makeInitTimeSeriesPlot() {
-    d3.json("php/getNewData.php?param=mnvel&tablenm=velocities&objectnm="+objectNm, function(error, data) {
+function plotInitTempPress() {
+    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate, function(error, data) {
         if (error) {
             console.log("There was an error loading the JSON blob.");
-            console.log("The parameter passed to getNewData.php was:");
-            console.log(param);
+            console.log("The dates passed to getNewData.php were:");
+            console.log(begDate);
+            console.log(endDate);
             console.log(error);
         } else {
 
@@ -198,20 +199,6 @@ function makeInitTimeSeriesPlot() {
                 .selectAll('rect')
                 .attr("y", -6)
                 .attr("height", height2 + 7);
-
-            //create the rows that have all the 
-            //data in __data__:
-            var trs = tbody.selectAll('tr')
-                .data(data)
-                .enter()
-                .append('tr');
-
-            //Insert the columns:
-            var tds = trs.selectAll('td')
-                        .data(function(d) { return [d.obnm, d.objectnm, d.date, d3.round(d.ydata,2)];})
-                        .enter()
-                        .append('td')
-                        .text(function(d) {return d;});
 
 
         }
@@ -405,4 +392,4 @@ function addAxes() {
         .text('mnvel');
 
 }
-window.onload = plotTempPress(); //makeInitTimeSeriesPlot();
+window.onload = plotInitTempPress(); //makeInitTimeSeriesPlot();
