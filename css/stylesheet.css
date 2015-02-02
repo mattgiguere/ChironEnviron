@@ -35,6 +35,12 @@
   fill-opacity: 1;
 }
 
+.tabcen {
+  fill: #111143;
+  stroke: #555;
+
+}
+
 .extent {
   fill: #000;
   fill-opacity: .125;
@@ -134,4 +140,30 @@ circle.hidden {
   top: 100%;
   left: 0;
 }
-;
+
+.legend {
+  background-color: white;
+  color: white;
+  border-style: solid;
+  border-color: #999;
+  border-width: 5px;
+}
+
+.legend-box {
+  border-radius: 5px;
+  border-style: solid;
+  border-color: #999;
+  border-width: 5px;
+  fill-opacity: 0;
+}
+
+.legend-items {
+  background-color: white;
+  color: white;
+  fill-opacity: .9;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: #999;
+}
+
