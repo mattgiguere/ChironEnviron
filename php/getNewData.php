@@ -1,4 +1,5 @@
 <?php
+    ini_set('memory_limit', '256M');
     //$afspath = $_SERVER["AeroFSdir"];
     $pltpar = $_GET['param'];
     $sqltblnm = $_GET['tablenm'];
@@ -50,7 +51,7 @@
     }
 
         $myquery = "
-    SELECT sampleTime as date, gratingTemp, enclosureTemp FROM environ WHERE sampleTime > '" . $begdate . "' AND sampleTime < '" . $endDate . "';
+    SELECT sampleTime as date, gratingTemp as ydata FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "';
     ";   
 
     $query = mysql_query($myquery);
