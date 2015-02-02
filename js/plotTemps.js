@@ -101,10 +101,11 @@ var focuscircgrp = focus.append("g");
 var contextpathgrp = context.append("g");
 var contextcircgrp = context.append("g");
 
+
 /* ***End D3 Global Variables*** */
 function plotInitTempPress() {
-    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate);
-    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate, function(error, data) {
+    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate);
+    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate, function(error, data) {
         if (error) {
             console.log("There was an error loading the JSON blob.");
             console.log("The dates passed to getNewData.php were:");
@@ -145,6 +146,7 @@ function plotInitTempPress() {
                 .attr('r', 2.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
+                .attr("data-legend",function(d) { return 'Table Center'; })
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);
 
@@ -202,6 +204,15 @@ function plotInitTempPress() {
                 .attr("y", -6)
                 .attr("height", height2 + 7);
 
+            legend = svg.append("g")
+              .attr("class","legend")
+              .attr("transform","translate(90,30)")
+              .style("font-size","12px")
+              .style("fill-opacity",".125")
+              .style("border-width","1px")
+              .style("border-style","solid")
+              .style("border-radius","10px")
+              .call(d3.legend);
 
         }
     });
@@ -224,8 +235,8 @@ function type(d) {
 }
 
 function plotTempPress(param) {
-    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate);
-    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate, function(error, data) {
+    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate);
+    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate, function(error, data) {
         if (error) {
             console.log("There was an error loading the JSON blob.");
             console.log("The dates passed to getNewData.php were:");
@@ -283,7 +294,7 @@ function plotTempPress(param) {
                 .enter()
                 .append("circle")
                 .attr("class", "tabcen dot")
-                .attr('r', 3.5)
+                .attr('r', 2.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
                 .transition()
@@ -337,7 +348,7 @@ function plotTempPress(param) {
                 .call(yAxis);
 
             //Update X Axis Label:
-            svg.select(".y.label")
+            svg.select(".x.label")
                 .transition()
                 .duration(1000)
                 .text(param);
