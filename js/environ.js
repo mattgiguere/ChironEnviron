@@ -20,7 +20,7 @@ $(document).ready(function () {
         if (clickedTP == 'echellePress') { plotEchellePressure = 1 - plotEchellePressure; }
         if (clickedTP == 'ccdTemp') {  plotCcdTemp = 1 - plotCcdTemp; }
         if (clickedTP == 'neckTemp') {  plotNeckTemp = 1 - plotNeckTemp; }
-        if (clickedTP == 'ccdTemp') {  plotCcdSetpoint = 1 - plotCcdSetpoint; }
+        if (clickedTP == 'ccdSetpoint') {  plotCcdSetpoint = 1 - plotCcdSetpoint; }
 
         plotTempPress();
     });
