@@ -18,7 +18,7 @@ $(document).ready(function () {
 //The default is to plot the past month:
 var endDateObj = moment();
 var begDateObj = moment();
-begDateObj.day(-2);
+begDateObj.month(-1);
 
 var begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
 var endDate = endDateObj.format('YYYY-MM-DDTHH:mm:ss');
