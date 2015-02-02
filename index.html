@@ -20,16 +20,11 @@
 <!-- end of navbar -->
 
 <!-- beginning of main content -->
-    <div class="container">
-      <div class="row">
-        <h1>
-          Blank page so far...
-        </h1>        
-      </div>
-    </div>
+
 <!-- dates row -->
 <div class="container">
   <div class="row">
+  <div class="text-center">
     <div class='btn-group' role='group'>
       <button type='button' class='btn btn-default'>Past Week</button>
       <button type='button' class='btn btn-default'>Past Month</button>
@@ -40,7 +35,88 @@
         </button>
       </div>
     </div>
+    </div>
   </div>
+</div>
+
+<div class="container">
+  <div class="row spacer hidden-xs"></div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-sm-3">
+      <div class="panel-group">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <p class="panel-title">
+              <a data-toggle='collapse' data-target='#temperaturePanel' href="#temperaturePanel">
+                Temperatures
+                <span class='caret'></span>
+              </a>
+            </p>
+          </div>
+          <div id="temperaturePanel" class="panel-collapse collapse">
+            <div class="panel-body">
+            <div class="btn-group-vertical btn-block" role='group' aria-label='Temperature button group'>
+              <button type="button" class="btn btn-default info">CCD</button>
+              <button type="button" class="btn btn-default">Coude Room</button>
+              <button type="button" class="btn btn-default">Enclosure</button>
+              <button type="button" class="btn btn-default">Enclosure 2</button>
+              <button type="button" class="btn btn-default">Grating</button>
+              <button type="button" class="btn btn-default">Structure</button>
+              <button type="button" class="btn btn-default">Instrument</button>
+              <button type="button" class="btn btn-default">Neck</button>
+              <button type="button" class="btn btn-default">Table Center</button>
+              <button type="button" class="btn btn-default">Table Low</button>
+            </div>
+            </div>
+          </div>
+        </div><!--panel -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <p class="panel-title">
+              <a data-toggle='collapse' data-target='#pressurePanel' href="#pressurePanel">
+                Pressures
+              <span class='caret'></span>
+              </a>
+            </p>
+          </div> <!--heading -->
+          <div id="pressurePanel" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="btn-group-vertical btn-block" role='group' aria-label='Pressure button group'>
+                <button type="button" class="btn btn-default info">Echelle</button>
+                <button type="button" class="btn btn-default">Barometer</button>
+                <button type="button" class="btn btn-default">Enclosure</button>
+              </div>
+            </div>
+          </div>
+        </div><!--/panel -->
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <p class="panel-title">
+              <a data-toggle='collapse' data-target='#setpointPanel' href="#setpointPanel">
+                Setpoints
+              <span class='caret'></span>
+              </a>
+            </p>
+          </div> <!--/heading -->
+          <div id="setpointPanel" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="btn-group-vertical btn-block" role='group' aria-label='Temperature button group'>
+                <button type="button" class="btn btn-default info">I2 Cell</button>
+                <button type="button" class="btn btn-default">Heater</button>
+                <button type="button" class="btn btn-default">Enclosure</button>
+                <button type="button" class="btn btn-default">Instrument</button>
+              </div>
+            </div>
+          </div>
+        </div><!--panel -->
+      </div><!--/.panel-group -->
+    </div><!--/.col-md-3 -->
+    <!--d3 plot -->
+    <div class="col-sm-8 col-sm-offset-1 col-lg-8"></div>
+  </div> <!-- well row -->
 </div>
 
 
