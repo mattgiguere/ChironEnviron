@@ -217,6 +217,21 @@ var svg = d3.select(".d3-plot-window")
 
 svg.call(tctip);
 svg.call(grtip);
+svg.call(encltmptip);
+svg.call(iodtmptip);
+svg.call(enclsptip);
+svg.call(iodsptip);
+svg.call(encltmp2tip);
+svg.call(ttlowtip);
+svg.call(strtip);
+svg.call(instsptip);
+svg.call(instrmntTmptip);
+svg.call(coudtip);
+svg.call(htrtip);
+svg.call(baromtip);
+svg.call(ccdtip);
+svg.call(ncktip);
+svg.call(ccdsptip);
 
 svg.append("defs").append("clipPath")
     .attr("id", "clip")
