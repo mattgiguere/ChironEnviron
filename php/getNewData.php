@@ -17,9 +17,12 @@
         $afspath = "/Users/" . $currentUser . "/AeroFS/";
     }
     
+    if (gethostname() == 'exoplanets.astro.yale.edu') {
+        $afspath = "/Library/WebServer/creds/";    
+    }
     //  
     //echo $afspath;
-    $credsfile = $afspath . '.credentials/SQL/csaye';
+    $credsfile = $afspath . '.credentials/SQL/csayeeu';
     $file = file_get_contents($credsfile);
     //echo "hello";
     //echo "The host is: ";
