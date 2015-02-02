@@ -139,7 +139,7 @@ var baromtip = d3.tip()
   .offset([-10, 0])
   .html(function(d) {
     return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Barometer Temp (C):</strong> <span style='color:#428BCA'>" + d.barometer + "</span></p>";
+            "<p><strong>Barometer Temp (mbar):</strong> <span style='color:#428BCA'>" + d.barometer + "</span></p>";
   });
 
 var echprestip = d3.tip()
@@ -147,7 +147,7 @@ var echprestip = d3.tip()
   .offset([-10, 0])
   .html(function(d) {
     return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Echelle Pressure (C):</strong> <span style='color:#428BCA'>" + d.echellePressure + "</span></p>";
+            "<p><strong>Echelle Pressure (mbar):</strong> <span style='color:#428BCA'>" + d.echellePressure + "</span></p>";
   });
 
 var ccdtip = d3.tip()
@@ -229,6 +229,7 @@ svg.call(instrmntTmptip);
 svg.call(coudtip);
 svg.call(htrtip);
 svg.call(baromtip);
+svg.call(echprestip);
 svg.call(ccdtip);
 svg.call(ncktip);
 svg.call(ccdsptip);
