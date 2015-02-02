@@ -136,11 +136,11 @@ function plotInitTempPress() {
             */
             
             
-            focuscircgrp.selectAll(".dot")
+            focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .enter()
                 .append("circle")
-                .attr("class", "dot")
+                .attr("class", "tabcen dot")
                 .attr('r', 3.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
@@ -173,18 +173,18 @@ function plotInitTempPress() {
                 .attr("dy", ".71em")
                 //.attr("x", width)
                 .style("text-anchor", "end")
-                .text('mnvel');
+                .text('Temperature');
 
             contextpathgrp.append("path")
                 .datum(data)
                 .attr("class", "area")
                 .attr("d", area2);
             
-            contextcircgrp.selectAll(".dot")
+            contextcircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .enter()
                 .append("circle")
-                .attr("class", "dot")
+                .attr("class", "tabcen dot")
                 .attr('r', 3.5)
                 .attr('cx', function(d) { return xScale2(d.date); })
                 .attr('cy', function(d) { return yScale2(d.ydata); });
@@ -265,23 +265,23 @@ function plotTempPress(param) {
             //focus.select(".area").attr("d", area);
 
             //Update all focus data points:
-            focuscircgrp.selectAll(".dot")
+            focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .transition()
                 .duration(1000)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); });
 
-            focuscircgrp.selectAll(".dot")
+            focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .exit()
                 .remove();
 
-            focuscircgrp.selectAll(".dot")
+            focuscircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .enter()
                 .append("circle")
-                .attr("class", "dot")
+                .attr("class", "tabcen dot")
                 .attr('r', 3.5)
                 .attr('cx', function(d) { return xScale(d.date); })
                 .attr('cy', function(d) { return yScale(d.ydata); })
@@ -298,23 +298,23 @@ function plotTempPress(param) {
                 .attr("d", area2);
 
             //Update all focus data points:
-            contextcircgrp.selectAll(".dot")
+            contextcircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .transition()
                 .duration(1000)
                 .attr('cx', function(d) { return xScale2(d.date); })
                 .attr('cy', function(d) { return yScale2(d.ydata); });
 
-            contextcircgrp.selectAll(".dot")
+            contextcircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .exit()
                 .remove();
 
-            contextcircgrp.selectAll(".dot")
+            contextcircgrp.selectAll(".tabcen.dot")
                 .data(data)
                 .enter()
                 .append("circle")
-                .attr("class", "dot")
+                .attr("class", "tabcen dot")
                 .attr('r', 3.5)
                 .attr('cx', function(d) { return xScale2(d.date); })
                 .attr('cy', function(d) { return yScale2(d.ydata); })
@@ -350,7 +350,7 @@ function plotTempPress(param) {
                 .attr("dy", ".71em")
                 //.attr("x", width)
                 .style("text-anchor", "end")
-                .text('mnvel');
+                .text('Temperature');
 
         }
 
