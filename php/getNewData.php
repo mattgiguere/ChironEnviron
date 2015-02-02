@@ -5,6 +5,7 @@
     $sqltblnm = $_GET['tablenm'];
     $begDate = $_GET['begDate'];
     $endDate = $_GET['endDate'];
+    $smplRate = $_GET['smplRate'];
 
     //echo gethostname();
     //echo get_current_user();
@@ -50,9 +51,24 @@
         $whereclause += 'o.object = ' . $objectnm;
     }
 
+
+    if ($smplRate =='Smpl-Daily') {
         $myquery = "
-    SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2;
-    ";   
+        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 AND HOUR(sampleTime) < 1;
+        ";   
+    }
+
+    if ($smplRate =='Smpl-Hourly') {
+        $myquery = "
+        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2;
+        ";   
+    }
+
+    if ($smplRate =='Smpl-All') {
+        $myquery = "
+        SELECT sampleTime as date, tableCenterTemp as ydata, tableCenterTemp, gratingTemp, coudeTemp FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "';
+        ";   
+    }
 
     $query = mysql_query($myquery);
     
