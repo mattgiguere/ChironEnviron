@@ -39,6 +39,21 @@ $(document).ready(function () {
 
     });
 
+    //the legend toggle
+    $('.lgnd-opt').click(function() {
+
+        $('.lgnd-opt').removeClass('active-legend');
+
+        var $this = $(this);
+        if (!$this.hasClass('active-legend')) {
+            $this.addClass('active-legend');
+        }
+        console.log($(this).attr('id'));
+        smplrate = $(this).attr('id');
+        plotTempPress();
+
+    });
+
     $('#pastWeek').click(function() {
         $('.time-rng').removeClass('active');
 
