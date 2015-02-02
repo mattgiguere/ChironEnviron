@@ -15,17 +15,43 @@ $(document).ready(function () {
         }
         console.log($(this).attr('id'));
         smplrate = $(this).attr('id');
-        plotInitTempPress();
+        plotTempPress();
 
     });
 
     $('#pastWeek').click(function() {
+        $('.time-rng').removeClass('active');
+
+        var $this = $(this);
+        if (!$this.hasClass('active')) {
+            $this.addClass('active');
+        }
+    	begDateObj = moment();
+		begDateObj.days(-7);
+		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+		plotTempPress();
 
     });
     $('#pastMonth').click(function() {
+        $('.time-rng').removeClass('active');
+
+        var $this = $(this);
+        if (!$this.hasClass('active')) {
+            $this.addClass('active');
+        }
+    	begDateObj = moment();
+		begDateObj.month(-1);
+		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+		plotTempPress();
     	
     });
     $('#pastCustom').click(function() {
+        $('.time-rng').removeClass('active');
+
+        var $this = $(this);
+        if (!$this.hasClass('active')) {
+            $this.addClass('active');
+        }
     	
     });
 });
@@ -33,10 +59,10 @@ $(document).ready(function () {
 //The default is to plot the past month:
 var endDateObj = moment();
 var begDateObj = moment();
-begDateObj.days(-4);
+begDateObj.days(-7);
 
 //default sampling:
-var smplrate='Smpl-hourly';
+var smplrate='Smpl-Hourly';
 
 var begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
 var endDate = endDateObj.format('YYYY-MM-DDTHH:mm:ss');
