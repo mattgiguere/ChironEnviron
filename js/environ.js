@@ -29,6 +29,7 @@ $(document).ready(function () {
     	begDateObj = moment();
 		begDateObj.days(-7);
 		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+		console.log('new begDate: '+begDate);
 		plotTempPress();
 
     });
@@ -40,8 +41,38 @@ $(document).ready(function () {
             $this.addClass('active');
         }
     	begDateObj = moment();
-		begDateObj.month(-1);
+		begDateObj.days(-30);
+		console.log(begDateObj);
 		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+		console.log('new begDate: '+begDate);
+		plotTempPress();
+    	
+    });
+    $('#pastYear').click(function() {
+        $('.time-rng').removeClass('active');
+
+        var $this = $(this);
+        if (!$this.hasClass('active')) {
+            $this.addClass('active');
+        }
+    	begDateObj = moment();
+		begDateObj.days(-365);
+		console.log(begDateObj);
+		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+		console.log('new begDate: '+begDate);
+		plotTempPress();
+    	
+    });
+    $('#pastAll').click(function() {
+        $('.time-rng').removeClass('active');
+
+        var $this = $(this);
+        if (!$this.hasClass('active')) {
+            $this.addClass('active');
+        }
+    	begDateObj = moment('2012-03-02T00:00:00');
+		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
+		console.log('new begDate: '+begDate);
 		plotTempPress();
     	
     });
