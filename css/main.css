@@ -60,3 +60,7 @@ body {
 .d3plotframe {
   background-color: white;
 }
+
+.active-sampling {
+  background-color: #DFF1D9;
+}

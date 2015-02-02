@@ -4,6 +4,21 @@ $(document).ready(function () {
         $(this).toggleClass('btn-plotted');
 
     });
+    //the sampling rates
+    $('.smpl-opt').click(function() {
+
+        $('.smpl-opt').removeClass('active-sampling');
+
+        var $this = $(this);
+        if (!$this.hasClass('active-sampling')) {
+            $this.addClass('active-sampling');
+        }
+        console.log($(this).attr('id'));
+        smplrate = $(this).attr('id');
+        plotInitTempPress();
+
+    });
+
     $('#pastWeek').click(function() {
 
     });
@@ -19,6 +34,9 @@ $(document).ready(function () {
 var endDateObj = moment();
 var begDateObj = moment();
 begDateObj.days(-4);
+
+//default sampling:
+var smplrate='Smpl-hourly';
 
 var begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
 var endDate = endDateObj.format('YYYY-MM-DDTHH:mm:ss');
