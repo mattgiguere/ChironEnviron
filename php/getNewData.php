@@ -51,7 +51,7 @@
     }
 
         $myquery = "
-    SELECT sampleTime as date, gratingTemp as ydata FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "';
+    SELECT sampleTime as date, tableTempLow as ydata FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "';
     ";   
 
     $query = mysql_query($myquery);
