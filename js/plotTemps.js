@@ -414,7 +414,109 @@ function plotTempPress(param) {
                     .data(data)
                     .remove();
             }
+            //end of 4
 
+            //5. Enclosure Setpoint
+            if (plotEnclosureSetpoint) {
+            focuscircgrp.selectAll(".enclStpt.dot")
+                .data(data)
+                .transition()
+                .duration(1000)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.enclosureSetpoint); });
+
+            focuscircgrp.selectAll(".enclStpt.dot")
+                .data(data)
+                .exit()
+                .remove();
+
+            focuscircgrp.selectAll(".enclStpt.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "enclStpt dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.enclosureSetpoint); })
+                .attr("data-legend", function(d) { return 'Enclosure Setpoint'; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".enclStpt.dot")
+                    .data(data)
+                    .remove();
+            }
+            //end of 5
+
+            //6. Iodine Cell Setpoint
+            if (plotIodineCellSetpoint) {
+            focuscircgrp.selectAll(".iodStpt.dot")
+                .data(data)
+                .transition()
+                .duration(1000)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.iodineCellSetpoint); });
+
+            focuscircgrp.selectAll(".iodStpt.dot")
+                .data(data)
+                .exit()
+                .remove();
+
+            focuscircgrp.selectAll(".iodStpt.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "iodStpt dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.iodineCellSetpoint); })
+                .attr("data-legend", function(d) { return 'Iodine Setpoint'; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".iodStpt.dot")
+                    .data(data)
+                    .remove();
+            }
+            //end of 6
+
+            //7. Enclosure Temp 2
+            if (plotEnclosureTemp2) {
+            focuscircgrp.selectAll(".enclTemp2.dot")
+                .data(data)
+                .transition()
+                .duration(1000)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.enclosureTemp2); });
+
+            focuscircgrp.selectAll(".enclTemp2.dot")
+                .data(data)
+                .exit()
+                .remove();
+
+            focuscircgrp.selectAll(".enclTemp2.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "enclTemp2 dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.enclosureTemp2); })
+                .attr("data-legend", function(d) { return 'Enclosure Temp 2'; })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
+                .transition()
+                .duration(1000);
+            } else {
+                focuscircgrp.selectAll(".enclTemp2.dot")
+                    .data(data)
+                    .remove();
+            }
+            //end of 7
 
 
             legend = svg.append("g")

@@ -47,7 +47,20 @@
 
 .iodTemp {
   fill: #DFF1D9;
+}
+
+.enclStpt {
+  fill: #ED6C49;
   stroke: #555;
+}
+
+.iodStpt {
+  fill: #DFF1D9;
+  stroke: #555;
+}
+
+.enclTemp2 {
+  fill: #982023;
 }
 
 .extent {
