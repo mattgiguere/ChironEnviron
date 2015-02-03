@@ -254,6 +254,7 @@ var focuscircgrp = focus.append("g");
 var contextpathgrp = context.append("g");
 var contextcircgrp = context.append("g");
 
+var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp", "iodineCellTemp", "enclosureSetpoint", "iodineCellSetpoint", "enclosureTemp2", "tableTempLow", "structureTemp", "instrumentSetpoint", "instrumentTemp", "coudeTemp", "heaterSetpoint", "barometer", "echellePressure", "ccdTemp", "neckTemp", "ccdSetpoint"];
 
 /* ***End D3 Global Variables*** */
 function plotInitTempPress() {
@@ -277,12 +278,15 @@ function plotInitTempPress() {
             
             //declare 3 new vars: an empty object, a list, and a number:
             var tempsByMonitor = {},
-                temps = d3.keys(data[0]).filter(function (d) { return d; }),
+                temps = d3.keys(data[0]).filter(function (d) { return d !== 'date'; }),
                 n = temps.length;
             console.log(temps);
             console.log(n);
             
-            //console.log("Now in d3.json...");
+            //now fill the tempsByMonitor object with the data:
+            temps.forEach(function(temp) {
+                tempsByMonitor[temp] = d3.extent(data, function (d) { return d[temp]; });
+            });
 
             // Scale the range of the data
             xScale.domain(d3.extent(data, function(d) { return d.date; }));
@@ -469,12 +473,13 @@ function brushed() {
     focus.select(".area").attr("d", area);
     focus.select(".x.axis").call(xAxis);
     focuscircgrp.selectAll(".dot")
-        .attr("cx", function(d) { return xScale(d.date); })
-        .attr("cy", function(d) { return yScale(d.gratingTemp); });
-    focuscircgrp.selectAll(".dot")
-        .attr("cx", function(d) { return xScale(d.date); })
-        .attr("cy", function(d) { return yScale(d.gratingTemp); });
-}
+        .attr("cx", function(mytemps) {
+            return function(d) { return xScale(d.date); };
+    })
+        .attr("cy", function(mytemps) {
+            return  function(d) { return yScale(d[mytemps]); };
+        });
+};
 
 function type(d) {
     d.date = parseDate(d.date);
