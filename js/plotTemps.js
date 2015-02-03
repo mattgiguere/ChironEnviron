@@ -1193,10 +1193,12 @@ function plotTempPress(param) {
                 .call(yAxis);
 
             //Update X Axis Label:
-            svg.select(".x.label")
-                .transition()
-                .duration(1000)
-                .text(param);
+            focus.select(".x.label")
+                .attr("class", "x label")
+                .attr("x", width)
+                .attr("y", -6)
+                .style("text-anchor", "end")            
+                .text('Observation Date');
 
             //Add y-label:
             focus.select(".y.label")
