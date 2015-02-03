@@ -1269,40 +1269,4 @@ function getMaxValue(d) {
     return newmax;
 }
 
-function addAxes() {
-    /*Now add the axes. Adding them last makes them 
-    on top of everything else. */
-    // Add the X Axis
-    var xAxisSVG = svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + (height - fpad*height) + ")")
-        .call(xAxis);
-
-    //Add x-label:
-    xAxisSVG.append("text")
-        .attr("class", "x label")
-        .attr("x", (width - fpad*width))
-        .attr("y", -6)
-        .style("text-anchor", "end")            
-        .text('Observation Date');
-
-
-    // Add the Y Axis
-    var yAxisSVG = svg.append("g")
-        .attr("class", "y axis")
-        .attr("transform", "translate(" + fpad*width + ",0)")
-        .call(yAxis);
-
-    //Add y-label:
-    yAxisSVG.append("text")
-        .attr("class", "y label")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -15)
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        //.attr("x", width)
-        .style("text-anchor", "end")
-        .text('mnvel');
-
-}
 window.onload = plotInitTempPress(); //makeInitTimeSeriesPlot();
