@@ -57,19 +57,19 @@
 
     if ($smplRate =='Smpl-Daily') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp as ydata, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
+        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-Hourly') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp as ydata, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 ORDER BY sampleTime ASC;
+        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-All') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp as ydata, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' ORDER BY sampleTime ASC;
+        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' ORDER BY sampleTime ASC;
         ";   
     }
 
