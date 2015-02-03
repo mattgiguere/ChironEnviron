@@ -363,6 +363,20 @@ function plotInitTempPress() {
                     .on('mouseout', strtip.hide);
             }
 
+            if (plotInstrumentSetpoint) {
+                focuscircgrp.selectAll(".instrmntStpt.dot")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("class", "instrmntStpt dot")
+                    .attr('r', 2.5)
+                    .attr('cx', function(d) { return xScale(d.date); })
+                    .attr('cy', function(d) { return yScale(d.instrumentSetpoint); })
+                    .attr("data-legend", function(d) { return 'Instrument Setpoint'; })
+                    .on('mouseover', instsptip.show)
+                    .on('mouseout', instsptip.hide);
+            }
+
             if (plotInstrumentTemp) {
                 focuscircgrp.selectAll(".instrmntTmp.dot")
                     .data(data)
@@ -377,19 +391,17 @@ function plotInitTempPress() {
                     .on('mouseout', instrmntTmptip.hide);
             }
 
-            if (plotInstrumentSetpoint) {
-                focuscircgrp.selectAll(".instrmntStpt.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "instrmntStpt dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.instrumentSetpoint); })
-                    .attr("data-legend", function(d) { return 'Instrument Setpoint'; })
-                    .on('mouseover', instsptip.show)
-                    .on('mouseout', instsptip.hide);
-            }
+            focuscircgrp.selectAll(".tabcen.dot")
+                .data(data)
+                .enter()
+                .append("circle")
+                .attr("class", "tabcen dot")
+                .attr('r', 2.5)
+                .attr('cx', function(d) { return xScale(d.date); })
+                .attr('cy', function(d) { return yScale(d.tableCenterTemp); })
+                .attr("data-legend",function(d) { return 'Table Center'; })
+                .on('mouseover', tctip.show)
+                .on('mouseout', tctip.hide);
 
             var xAxisSVG = focus.append("g")
                 .attr("class", "x axis")
@@ -473,13 +485,9 @@ function brushed() {
     focus.select(".area").attr("d", area);
     focus.select(".x.axis").call(xAxis);
     focuscircgrp.selectAll(".dot")
-        .attr("cx", function(mytemps) {
-            return function(d) { return xScale(d.date); };
-    })
-        .attr("cy", function(mytemps) {
-            return  function(d) { return yScale(d[mytemps]); };
-        });
-};
+        .attr("cx", function(d) { return xScale(d.date); })
+        .attr("cy", function(d) { return yScale(d.gratingTemp); });
+}
 
 function type(d) {
     d.date = parseDate(d.date);
@@ -1266,6 +1274,7 @@ function getMinValue(d) {
     if (plotCcdTemp) { newmin = (newmin < d.ccdTemp) ? newmin : d.ccdTemp; }
     if (plotNeckTemp) { newmin = (newmin < d.neckTemp) ? newmin : d.neckTemp; }
     if (plotCcdSetpoint) { newmin = (newmin < d.ccdSetpoint) ? newmin : d.ccdSetpoint; }
+    newmin -= 0.5;
 
     return newmin;
 }
