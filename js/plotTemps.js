@@ -445,15 +445,6 @@ function plotInitTempPress() {
                 .attr('cx', function(d) { return xScale2(d.date); })
                 .attr('cy', function(d) { return yScale2(d.tableCenterTemp); });
 
-            contextcircgrp.selectAll(".gratingTemp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "gratingTemp dot")
-                .attr('r', 3.5)
-                .attr('cx', function(d) { return xScale2(d.date); })
-                .attr('cy', function(d) { return yScale2(d.gratingTemp); });
-
             context.append("g")
                 .attr("class", "x axis2")
                 .attr("transform", "translate(0," + height2 + ")")
