@@ -422,7 +422,7 @@ function plotInitTempPress() {
                 .attr('cy', function(d) { return yScale2(d.ydata); });
 
             context.append("g")
-                .attr("class", "x axis")
+                .attr("class", "x axis2")
                 .attr("transform", "translate(0," + height2 + ")")
                 .call(xAxis2);
 
@@ -1185,6 +1185,11 @@ function plotTempPress(param) {
                 .transition()
                 .duration(1000)
                 .call(xAxis);
+
+            svg.select(".x.axis2")
+                .transition()
+                .duration(1000)
+                .call(xAxis2);
 
             // Update the Y Axis
             svg.select(".y.axis")
