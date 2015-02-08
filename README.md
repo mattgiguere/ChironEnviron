@@ -1,5 +1,5 @@
 # ChironEnviron
-The [CHIRON Environment Web Page Repository](http://exoplanets.astro.yale.edu/environment). 
+The [CHIRON Environment Web Page Repository](http://chiron.astro.yale.edu/environment). 
 The site makes use of the [Bootstrap](http://getbootstrap.com) framework, 
 the plot is generated with [d3.js](http://d3js.org) connecting to the 
 [chirondb](https://github.com/mattgiguere/chirondb) MySQL database via PHP, 
