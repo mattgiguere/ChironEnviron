@@ -75,7 +75,7 @@ $(document).ready(function () {
             $this.addClass('active');
         }
     	begDateObj = moment();
-		begDateObj.days(-30);
+		begDateObj.subtract(1, 'months');
 		console.log(begDateObj);
 		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
 		console.log('new begDate: '+begDate);
@@ -90,7 +90,7 @@ $(document).ready(function () {
             $this.addClass('active');
         }
     	begDateObj = moment();
-		begDateObj.days(-365);
+		begDateObj.subtract(1, 'years');
 		console.log(begDateObj);
 		begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
 		console.log('new begDate: '+begDate);
@@ -121,10 +121,10 @@ $(document).ready(function () {
     });
 });
 
-//The default is to plot the past month:
+//The default is to plot the past week:
 var endDateObj = moment();
 var begDateObj = moment();
-begDateObj.days(-7);
+begDateObj.subtract(7, 'days');
 
 //The default values to plot:
 var plotLegend = 0;
