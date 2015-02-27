@@ -258,7 +258,7 @@ var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp", "iodineCellTem
 
 /* ***End D3 Global Variables*** */
 function plotInitTempPress() {
-    console.log("php/getNewData.php?begDate='"+begDate+"'&endDate='"+endDate+"'&smplRate="+smplrate);
+    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate);
     d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate, function(error, data) {
         if (error) {
             console.log("There was an error loading the JSON blob.");
