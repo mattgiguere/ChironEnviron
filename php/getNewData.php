@@ -18,16 +18,23 @@
     }
     
     if (gethostname() == 'exoplanets.astro.yale.edu') {
+        //echo "You are on exoplanets! \r\n";
         $afspath = "/Library/WebServer/creds/";    
     }
     //  
+    //echo "afspath is: ";
+
+    //echo $afspath; 
     //echo $afspath;
     $credsfile = $afspath . '.credentials/SQL/csaye';
+    //echo "credsfile is: ";
+    //echo $credsfile;
     $file = file_get_contents($credsfile);
     //echo "hello";
     //echo "The host is: ";
     //echo $file[0];
     //echo $file;
+    //echo "File should have been above.";
     
     $creds = explode("\n", $file);
     //echo $creds[0];
