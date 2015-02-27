@@ -22,7 +22,7 @@
     }
     //  
     //echo $afspath;
-    $credsfile = $afspath . '.credentials/SQL/csayeeu';
+    $credsfile = $afspath . '.credentials/SQL/csaye';
     $file = file_get_contents($credsfile);
     //echo "hello";
     //echo "The host is: ";
