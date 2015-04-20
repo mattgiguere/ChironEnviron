@@ -18,16 +18,23 @@
     }
     
     if (gethostname() == 'exoplanets.astro.yale.edu') {
+        //echo "You are on exoplanets! \r\n";
         $afspath = "/Library/WebServer/creds/";    
     }
     //  
+    //echo "afspath is: ";
+
+    //echo $afspath; 
     //echo $afspath;
     $credsfile = $afspath . '.credentials/SQL/csaye';
+    //echo "credsfile is: ";
+    //echo $credsfile;
     $file = file_get_contents($credsfile);
     //echo "hello";
     //echo "The host is: ";
     //echo $file[0];
     //echo $file;
+    //echo "File should have been above.";
     
     $creds = explode("\n", $file);
     //echo $creds[0];
@@ -57,13 +64,13 @@
 
     if ($smplRate =='Smpl-Daily') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
+        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 3 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-Hourly') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 2 ORDER BY sampleTime ASC;
+        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 3 ORDER BY sampleTime ASC;
         ";   
     }
 
