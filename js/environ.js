@@ -155,7 +155,7 @@ var smplrate='Smpl-Hourly';
 var begDate = begDateObj.format('YYYY-MM-DDTHH:mm:ss');
 var endDate = endDateObj.format('YYYY-MM-DDTHH:mm:ss');
 
-console.log('beginning date: '+begDate);
+console.log('beginning date: ' + begDate);
 //returns: beginning date: 2014-12-01 21:03:08
 console.log('end date: '+endDate);
 //returns end date: 2014-12-01 21:03:08
