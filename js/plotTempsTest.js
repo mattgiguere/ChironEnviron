@@ -307,8 +307,6 @@ function plotTempPress(param) {
           })
       });
 
-    console.log(data);
-
       //now fill the tempsByMonitor object with the data:
       temps.forEach(function(temp) {
           tempsByMonitor[temp] = d3.extent(data, function (d) { return d[temp]; });
@@ -343,22 +341,22 @@ function plotTempPress(param) {
       //////////////////////////////////////////////////
       mytemps.forEach(function(tempKey) {
 
-        //console.log(tempKey);
-        var newdots = focuscircgrp
+        console.log(tempKey);
+        var newFocusDots = focuscircgrp
           .selectAll(dotClassMap[tempKey])
           .data(data);
         
-        newdots.exit()
+        newFocusDots.exit()
             .remove();
 
-        newdots
-            .transition()
-            .duration(1000)
-            .attr('cx', function(d) { return xScale(d.date); })
-            .attr('cy', function(d) { return yScale(d[tempKey]); });
-
         if (setTemps[tempKey]) {
-          newdots
+          newFocusDots
+              .transition()
+              .duration(1000)
+              .attr('cx', function(d) { return xScale(d.date); })
+              .attr('cy', function(d) { return yScale(d[tempKey]); });
+
+          newFocusDots
               .enter()
               .append("circle")
               .attr("class", addClassMap[tempKey])
@@ -377,6 +375,8 @@ function plotTempPress(param) {
               .on('mouseout', function(){return tooltip.style("visibility", "hidden");})
               .transition()
               .duration(1000);          
+        } else {
+          focuscircgrp.selectAll(dotClassMap[tempKey]).remove();
         }
       });
 
