@@ -30,149 +30,14 @@ var yScale = d3.scale.linear().range([height, 0]);
 var yScale2 = d3.scale.linear().range([height2, 0]);
 
 //add tool-tips:
-var tctip = d3.tip()
+var tooltip = d3.select("body")
+  .append("div")
   .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Table Center Temp (C):</strong> <span style='color:#428BCA'>" + d.tableCenterTemp + "</span></p>";
-  });
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("visibility", "hidden")
+  .text("a simple tooltip");
 
-var grtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Grating Temp (C):</strong> <span style='color:#428BCA'>" + d.gratingTemp + "</span></p>";
-  });
-
-var encltmptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Enclosure Temp (C):</strong> <span style='color:#428BCA'>" + d.enclosureTemp + "</span></p>";
-  });
-
-var iodtmptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Iodine Temp (C):</strong> <span style='color:#428BCA'>" + d.iodineCellTemp + "</span></p>";
-  });
-
-var enclsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Enclosure Setpoint (C):</strong> <span style='color:#428BCA'>" + d.enclosureSetpoint + "</span></p>";
-  });
-
-var iodsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Iodine Setpoint (C):</strong> <span style='color:#428BCA'>" + d.iodineCellSetpoint + "</span></p>";
-  });
-
-var encltmp2tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Enclosure Temp 2 (C):</strong> <span style='color:#428BCA'>" + d.enclosureTemp2 + "</span></p>";
-  });
-
-var ttlowtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Table Temp Low(C):</strong> <span style='color:#428BCA'>" + d.tableTempLow + "</span></p>";
-  });
-
-var strtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Structure Temp (C):</strong> <span style='color:#428BCA'>" + d.structureTemp + "</span></p>";
-  });
-
-var instsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Instrument Setpoint (C):</strong> <span style='color:#428BCA'>" + d.instrumentSetpoint + "</span></p>";
-  });
-
-var instrmntTmptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Instrument Temp (C):</strong> <span style='color:#428BCA'>" + d.instrumentTemp + "</span></p>";
-  });
-
-var coudtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Coude Temp (C):</strong> <span style='color:#428BCA'>" + d.coudeTemp + "</span></p>";
-  });
-
-var htrtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Heater Setpoint (C):</strong> <span style='color:#428BCA'>" + d.heaterSetpoint + "</span></p>";
-  });
-
-var baromtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Barometer Temp (mbar):</strong> <span style='color:#428BCA'>" + d.barometer + "</span></p>";
-  });
-
-var echprestip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Echelle Pressure (mbar):</strong> <span style='color:#428BCA'>" + d.echellePressure + "</span></p>";
-  });
-
-var ccdtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>CCD Temp (C):</strong> <span style='color:#428BCA'>" + d.ccdTemp + "</span></p>";
-  });
-
-var ncktip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Neck Temp (C):</strong> <span style='color:#428BCA'>" + d.neckTemp + "</span></p>";
-  });
-
-var ccdsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>CCD Setpoint (C):</strong> <span style='color:#428BCA'>" + d.ccdSetpoint + "</span></p>";
-  });
 
 // Define the axes
 var xAxis = d3.svg.axis()
@@ -215,25 +80,6 @@ var svg = d3.select(".d3-plot-window")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
 
-svg.call(tctip);
-svg.call(grtip);
-svg.call(encltmptip);
-svg.call(iodtmptip);
-svg.call(enclsptip);
-svg.call(iodsptip);
-svg.call(encltmp2tip);
-svg.call(ttlowtip);
-svg.call(strtip);
-svg.call(instsptip);
-svg.call(instrmntTmptip);
-svg.call(coudtip);
-svg.call(htrtip);
-svg.call(baromtip);
-svg.call(echprestip);
-svg.call(ccdtip);
-svg.call(ncktip);
-svg.call(ccdsptip);
-
 svg.append("defs").append("clipPath")
     .attr("id", "clip")
     .append("rect")
@@ -254,995 +100,377 @@ var focuscircgrp = focus.append("g");
 var contextpathgrp = context.append("g");
 var contextcircgrp = context.append("g");
 
-var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp", "iodineCellTemp", "enclosureSetpoint", "iodineCellSetpoint", "enclosureTemp2", "tableTempLow", "structureTemp", "instrumentSetpoint", "instrumentTemp", "coudeTemp", "heaterSetpoint", "barometer", "echellePressure", "ccdTemp", "neckTemp", "ccdSetpoint"];
+var xAxisSVG = focus.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
 
-/* ***End D3 Global Variables*** */
-function plotInitTempPress() {
-    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate);
-    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate, function(error, data) {
-        if (error) {
-            console.log("There was an error loading the JSON blob.");
-            console.log("The dates passed to getNewData.php were:");
-            console.log(begDate);
-            console.log(endDate);
-            console.log(error);
-        } else {
+//Add x-label:
+xAxisSVG.append("text")
+    .attr("class", "x label")
+    .attr("x", width)
+    .attr("y", -6)
+    .style("text-anchor", "end")            
+    .text('Observation Date');
 
-            
-            data.forEach(function(d) {
-                d.date = parseDate(d.date);
-                d.tableCenterTemp = +d.tableCenterTemp;
-                d.gratingTemp = +d.gratingTemp;
-            });
+var yAxisSVG = focus.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
 
-            
-            //declare 3 new vars: an empty object, a list, and a number:
-            var tempsByMonitor = {},
-                temps = d3.keys(data[0]).filter(function (d) { return d !== 'date'; }),
-                n = temps.length;
-            console.log(temps);
-            console.log(n);
-            
-            //now fill the tempsByMonitor object with the data:
-            temps.forEach(function(temp) {
-                tempsByMonitor[temp] = d3.extent(data, function (d) { return d[temp]; });
-            });
+//Add y-label:
+yAxisSVG.append("text")
+    .attr("class", "y label")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -15)
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    //.attr("x", width)
+    .style("text-anchor", "end")
+    .text('Temperature');
 
-            // Scale the range of the data
-            xScale.domain(d3.extent(data, function(d) { return d.date; }));
-            yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
-                d3.max(data, function(d) { return getMaxValue(d); })]);
-            xScale2.domain(xScale.domain());
-            yScale2.domain(yScale.domain());
-            
-            focuscircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "tabcen dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.tableCenterTemp); })
-                .attr("data-legend",function(d) { return 'Table Center'; })
-                .on('mouseover', tctip.show)
-                .on('mouseout', tctip.hide);
+var xAxis2SVG = context.append("g")
+          .attr("class", "x axis2")
+          .attr("transform", "translate(0," + height2 + ")")
+          .call(xAxis2);
 
-            if (plotGratingTemp) {
-                focuscircgrp.selectAll(".gratingTemp.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "gratingTemp dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.gratingTemp); })
-                    .attr("data-legend", function(d) { return 'Grating Temp'; })
-                    .on('mouseover', grtip.show)
-                    .on('mouseout', grtip.hide);
-            }
+var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp",
+               "iodineCellTemp", "enclosureSetpoint", "iodineCellSetpoint",
+               "enclosureTemp2", "tableTempLow", "structureTemp",
+               "instrumentSetpoint", "instrumentTemp", "coudeTemp",
+               "heaterSetpoint", "barometer", "echellePressure",
+               "ccdTemp", "neckTemp", "ccdSetpoint"];
 
-            if (plotEnclosureSetpoint) {
-                focuscircgrp.selectAll(".enclStpt.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "enclStpt dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.enclosureSetpoint); })
-                    .attr("data-legend", function(d) { return 'Enclosure Setpoint'; })
-                    .on('mouseover', enclsptip.show)
-                    .on('mouseout', enclsptip.hide);
-            }
-
-            if (plotTableTempLow) {
-                focuscircgrp.selectAll(".tabTmpLow.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "tabTmpLow dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.tableTempLow); })
-                    .attr("data-legend", function(d) { return 'Table Temp Low'; })
-                    .on('mouseover', ttlowtip.show)
-                    .on('mouseout', ttlowtip.hide);
-            }
-
-            if (plotStructureTemp) {
-                focuscircgrp.selectAll(".strctrTemp.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "strctrTemp dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.structureTemp); })
-                    .attr("data-legend", function(d) { return 'Structure Temp'; })
-                    .on('mouseover', strtip.show)
-                    .on('mouseout', strtip.hide);
-            }
-
-            if (plotInstrumentSetpoint) {
-                focuscircgrp.selectAll(".instrmntStpt.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "instrmntStpt dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.instrumentSetpoint); })
-                    .attr("data-legend", function(d) { return 'Instrument Setpoint'; })
-                    .on('mouseover', instsptip.show)
-                    .on('mouseout', instsptip.hide);
-            }
-
-            if (plotInstrumentTemp) {
-                focuscircgrp.selectAll(".instrmntTmp.dot")
-                    .data(data)
-                    .enter()
-                    .append("circle")
-                    .attr("class", "instrmntTmp dot")
-                    .attr('r', 2.5)
-                    .attr('cx', function(d) { return xScale(d.date); })
-                    .attr('cy', function(d) { return yScale(d.instrumentTemp); })
-                    .attr("data-legend", function(d) { return 'Instrument Temp'; })
-                    .on('mouseover', instrmntTmptip.show)
-                    .on('mouseout', instrmntTmptip.hide);
-            }
-
-            focuscircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "tabcen dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.tableCenterTemp); })
-                .attr("data-legend",function(d) { return 'Table Center'; })
-                .on('mouseover', tctip.show)
-                .on('mouseout', tctip.hide);
-
-            var xAxisSVG = focus.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis);
-
-            //Add x-label:
-            xAxisSVG.append("text")
-                .attr("class", "x label")
-                .attr("x", width)
-                .attr("y", -6)
-                .style("text-anchor", "end")            
-                .text('Observation Date');
-
-            var yAxisSVG = focus.append("g")
-                .attr("class", "y axis")
-                .call(yAxis);
-            
-            //Add y-label:
-            yAxisSVG.append("text")
-                .attr("class", "y label")
-                .attr("transform", "rotate(-90)")
-                .attr("x", -15)
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                //.attr("x", width)
-                .style("text-anchor", "end")
-                .text('Temperature');
-
-            contextpathgrp.append("path")
-                .datum(data)
-                .attr("class", "area")
-                .attr("d", area2);
-            
-            contextcircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "tabcen dot")
-                .attr('r', 3.5)
-                .attr('cx', function(d) { return xScale2(d.date); })
-                .attr('cy', function(d) { return yScale2(d.tableCenterTemp); });
-
-            context.append("g")
-                .attr("class", "x axis2")
-                .attr("transform", "translate(0," + height2 + ")")
-                .call(xAxis2);
-
-            context.append("g")
-                .attr("class", "x brush")
-                .call(brush)
-                .selectAll('rect')
-                .attr("y", -6)
-                .attr("height", height2 + 7);
-
-            if (plotLegend) {
-                legend = svg.append("g")
-                  .attr("class","legend")
-                  .attr("transform","translate(90,30)")
-                  .call(d3.legend);
-            } else {
-                legend = svg.append("g");
-            }
-
-        }
-    });
-
+var dotClassMap = {
+  "gratingTemp": ".gratingTemp.dot",
+  "tableCenterTemp": ".tabcen.dot",
+  "enclosureTemp": ".enclTemp.dot",
+  "iodineCellTemp": ".iodTemp.dot",
+  "enclosureSetpoint": ".enclStpt.dot",
+  "iodineCellSetpoint": ".iodStpt.dot",
+  "enclosureTemp2": ".enclTemp2.dot",
+  "tableTempLow": ".tabTmpLow.dot",
+  "structureTemp": ".strctrTemp.dot",
+  "instrumentSetpoint": ".instrmntStpt.dot",
+  "instrumentTemp": ".instrmntTmp.dot",
+  "coudeTemp": ".coudeTmp.dot",
+  "heaterSetpoint": ".heaterStpt.dot",
+  "barometer": ".barometer.dot",
+  "echellePressure": ".echpres.dot",
+  "ccdTemp": ".ccdTmp.dot",
+  "neckTemp": ".nckTmp.dot",
+  "ccdSetpoint": ".ccdStpt.dot"
 }
 
+var addClassMap = {
+  "gratingTemp": "gratingTemp dot",
+  "tableCenterTemp": "tabcen dot",
+  "enclosureTemp": "enclTemp dot",
+  "iodineCellTemp": "iodTemp dot",
+  "enclosureSetpoint": "enclStpt dot",
+  "iodineCellSetpoint": "iodStpt dot",
+  "enclosureTemp2": "enclTemp2 dot",
+  "tableTempLow": "tabTmpLow dot",
+  "structureTemp": "strctrTemp dot",
+  "instrumentSetpoint": "instrmntStpt dot",
+  "instrumentTemp": "instrmntTmp dot",
+  "coudeTemp": "coudeTmp dot",
+  "heaterSetpoint": "heaterStpt dot",
+  "barometer": "barometer dot",
+  "echellePressure": "echpres dot",
+  "ccdTemp": "ccdTmp dot",
+  "neckTemp": "nckTmp dot",
+  "ccdSetpoint": "ccdStpt dot"
+}
+
+var descriptionMap = {
+  "gratingTemp": "Grating Temp (C)",
+  "tableCenterTemp": "Table Center (C)",
+  "enclosureTemp": "Enclosure Temp (C)",
+  "iodineCellTemp": "Iodine Temp (C)",
+  "enclosureSetpoint": "Enclosure Setpoint (C)",
+  "iodineCellSetpoint": "Iodine Cell Setpoint (C)",
+  "enclosureTemp2": "Enclosure Temp 2 (C)",
+  "tableTempLow": "Table Temp Low (C)",
+  "structureTemp": "Structure Temp (C)",
+  "instrumentSetpoint": "Instrument Setpoint (C)",
+  "instrumentTemp": "Instrument Temp (C)",
+  "coudeTemp": "Coude Room Temp (C)",
+  "heaterSetpoint": "Heater Setpoint (C)",
+  "barometer": "Barometer Pressure (mbar)",
+  "echellePressure": "Echelle Grating Pressure (mbar)",
+  "ccdTemp": "CCD Temp (C)",
+  "neckTemp": "Dewar Neck Temp (C)",
+  "ccdSetpoint": "CCD Setpoint (C)"
+}
+
+/* ***End D3 Global Variables*** */
 function brushed() {
     xScale.domain(brush.empty() ? xScale2.domain() : brush.extent());
     focus.select(".area").attr("d", area);
     focus.select(".x.axis").call(xAxis);
-    focuscircgrp.selectAll(".dot")
+
+    mytemps.forEach(function(tempKey) {
+
+      //console.log(tempKey);
+      var newdots = focuscircgrp
+        .selectAll(dotClassMap[tempKey])
+        .attr('cx', function(d) { return xScale(d.date); })
+        .attr('cy', function(d) { return yScale(d[tempKey]); });
+    });
+
+/*    focuscircgrp.selectAll(".dot")
         .attr("cx", function(d) { return xScale(d.date); })
-        .attr("cy", function(d) { return yScale(d.gratingTemp); });
+        .attr("cy", function(d) { return yScale(d.gratingTemp); }); */
 }
 
-function type(d) {
-    d.date = parseDate(d.date);
-    d.tableCenterTemp = +d.tableCenterTemp;
-    return d;
+if (plotLegend) {
+    legend = svg.append("g")
+      .attr("class","legend")
+      .attr("transform","translate(90,30)")
+      .call(d3.legend);
+} else {
+    legend = svg.append("g");
 }
 
 function plotTempPress(param) {
-    console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate);
-    d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate, function(error, data) {
-        if (error) {
-            console.log("There was an error loading the JSON blob.");
-            console.log("The dates passed to getNewData.php were:");
-            console.log(begDate);
-            console.log(endDate);
-            console.log(error);
+
+  var setTemps = {
+    "gratingTemp": plotGratingTemp,
+    "tableCenterTemp": plotTableCenterTemp,
+    "enclosureTemp": plotEnclosureTemp,
+    "iodineCellTemp": plotIodineCellTemp,
+    "enclosureSetpoint": plotEnclosureSetpoint,
+    "iodineCellSetpoint": plotIodineCellSetpoint,
+    "enclosureTemp2": plotEnclosureTemp2,
+    "tableTempLow": plotTableTempLow,
+    "structureTemp": plotStructureTemp,
+    "instrumentSetpoint": plotInstrumentSetpoint,
+    "instrumentTemp": plotInstrumentTemp,
+    "coudeTemp": plotCoudeTemp,
+    "heaterSetpoint": plotHeaterSetpoint,
+    "barometer": plotBarometer,
+    "echellePressure": plotEchellePressure,
+    "ccdTemp": plotCcdTemp,
+    "neckTemp": plotNeckTemp,
+    "ccdSetpoint": plotCcdSetpoint
+  }
+
+  var phpCall = '';
+  if (plotGratingTemp) { phpCall += '&gratingTemp=True'};
+  if (plotTableCenterTemp) { phpCall += '&tableCenterTemp=True'};
+  if (plotEnclosureTemp) { phpCall += '&enclosureTemp=True'};
+  if (plotIodineCellTemp) { phpCall += '&iodineCellTemp=True'};
+  if (plotEnclosureSetpoint) { phpCall += '&enclosureSetpoint=True'};
+  if (plotIodineCellSetpoint) { phpCall += '&iodineCellSetpoint=True'};
+  if (plotEnclosureTemp2) { phpCall += '&enclosureTemp2=True'};
+  if (plotTableTempLow) { phpCall += '&tableTempLow=True'};
+  if (plotStructureTemp) { phpCall += '&structureTemp=True'};
+  if (plotInstrumentSetpoint) { phpCall += '&instrumentSetpoint=True'};
+  if (plotInstrumentTemp) { phpCall += '&instrumentTemp=True'};
+  if (plotCoudeTemp) { phpCall += '&coudeTemp=True'};
+  if (plotHeaterSetpoint) { phpCall += '&heaterSetpoint=True'};
+  if (plotBarometer) { phpCall += '&barometer=True'};
+  if (plotEchellePressure) { phpCall += '&echellePressure=True'};
+  if (plotCcdTemp) { phpCall += '&ccdTemp=True'};
+  if (plotNeckTemp) { phpCall += '&neckTemp=True'};
+  if (plotCcdSetpoint) { phpCall += '&ccdSetpoint=True'};
+
+  fullPhpCall = "php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate+phpCall;
+  console.log(fullPhpCall);
+  d3.json(fullPhpCall, function(error, data) {
+    if (error) {
+      console.log("There was an error loading the JSON blob.");
+      console.log("The dates passed to getNewData.php were:");
+      console.log(begDate);
+      console.log(endDate);
+      console.log(error);
+    } else {
+
+      //declare 3 new vars: an empty object, a list, and a number:
+      var tempsByMonitor = {},
+          temps = d3.keys(data[0]).filter(function (d) { return d !== 'date'; }),
+          n = temps.length;
+      console.log(temps);
+      console.log(n);
+
+      data.forEach(function(d) {
+          d.date = parseDate(d.date);
+          temps.forEach(function(k) {
+            d[k] = +d[k];
+          })
+      });
+
+      //now fill the tempsByMonitor object with the data:
+      temps.forEach(function(temp) {
+          tempsByMonitor[temp] = d3.extent(data, function (d) { return d[temp]; });
+      });
+
+      // Scale the range of the data
+      xScale.domain(d3.extent(data, function(d) { return d.date; }));
+      yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
+          d3.max(data, function(d) { return getMaxValue(d); })]);
+      xScale2.domain(xScale.domain());
+      yScale2.domain(yScale.domain());
+
+      contextpathgrp.append("path")
+          .datum(data)
+          .attr("class", "area")
+          .attr("d", area2);
+      
+      contextcircgrp.selectAll(".tabcen.dot")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("class", "tabcen dot")
+          .attr('r', 3.5)
+          .attr('cx', function(d) { return xScale2(d.date); })
+          .attr('cy', function(d) { return yScale2(d.tableCenterTemp); });
+
+      //Remove the legend to start fresh:
+      legend.selectAll('g').remove();
+
+      //////////////////////////////////////////////////
+      //Update all focus data points:
+      //////////////////////////////////////////////////
+      mytemps.forEach(function(tempKey) {
+
+        var newFocusDots = focuscircgrp
+          .selectAll(dotClassMap[tempKey])
+          .data(data);
+
+        var newContextDots = contextcircgrp
+          .selectAll(dotClassMap[tempKey])
+          .data(data)
+        
+        newFocusDots.exit()
+            .remove();
+
+        newContextDots.exit()
+            .remove();
+
+        if (setTemps[tempKey]) {
+          newFocusDots
+              .transition()
+              .duration(1000)
+              .attr('cx', function(d) { return xScale(d.date); })
+              .attr('cy', function(d) { return yScale(d[tempKey]); });
+
+          newContextDots
+            .transition()
+            .duration(1000)
+            .attr('cx', function(d) { return xScale2(d.date); })
+            .attr('cy', function(d) { return yScale2(d[tempKey]); });
+
+          newFocusDots
+              .enter()
+              .append("circle")
+              .attr("class", addClassMap[tempKey])
+              .attr('r', 2.5)
+              .attr('cx', function(d) { return xScale(d.date); })
+              .attr('cy', function(d) { return yScale(d[tempKey]); })
+              .attr("data-legend",function(d) { return descriptionMap[tempKey]; })
+              .on('mouseover', function(d){
+                var content = "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>";
+                content += "<p><strong>" + descriptionMap[tempKey] + ":</strong> <span style='color:#428BCA'>" + d[tempKey] + "</span></p>";
+                return tooltip
+                  .style("visibility", "visible")
+                  .html(content);
+              })
+              .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+              .on('mouseout', function(){return tooltip.style("visibility", "hidden");})
+              .transition()
+              .duration(1000);          
+
+
+          newContextDots
+            .enter()
+            .append("circle")
+            .attr("class", addClassMap[tempKey])
+            .attr('r', 2.5)
+            .attr('cx', function(d) { return xScale2(d.date); })
+            .attr('cy', function(d) { return yScale2(d[tempKey]); })
+            .transition()
+            .duration(1000);
+
+
         } else {
-
-
-            data.forEach(function(d) {
-                d.date = parseDate(d.date);
-                d.tableCenterTemp = +d.tableCenterTemp;
-            });
-
-            // Scale the range of the data
-            xScale.domain(d3.extent(data, function(d) { return d.date; }));
-            yScale.domain([d3.min(data, function(d) { return getMinValue(d); }), 
-                d3.max(data, function(d) { return getMaxValue(d); })]);
-            xScale2.domain(xScale.domain());
-            yScale2.domain(yScale.domain());
-
-            //Remove the legend to start fresh:
-            legend.selectAll('g').remove();
-
-            /*
-            focuspathgrp.select('path')
-                .remove()
-
-            focuspathgrp.append("path")
-                .datum(data)
-                .attr("class", "area")
-                .attr("d", area);
-            */
-
-            /*
-            focuspathgrp.append("path")
-                .datum(data)
-                .attr("class", "area")
-                .attr("d", area);
-            */
-            //focus.select(".area").attr("d", area);
-
-            //////////////////////////////////////////////////
-            //Update all focus data points:
-            //////////////////////////////////////////////////
-            //1. TableCenterTemp
-            if (plotTableCenterTemp) {
-            focuscircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.tableCenterTemp); });
-
-            focuscircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "tabcen dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.tableCenterTemp); })
-                .attr("data-legend",function(d) { return 'Grating Temp'; })
-                .on('mouseover', tctip.show)
-                .on('mouseout', tctip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".tabcen.dot")
-                    .data(data)
-                    .remove();
-                }
-
-            //2. GratingTemp
-            if (plotGratingTemp) {
-            focuscircgrp.selectAll(".gratingTemp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.gratingTemp); });
-
-            focuscircgrp.selectAll(".gratingTemp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".gratingTemp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "gratingTemp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.gratingTemp); })
-                .attr("data-legend", function(d) { return 'Grating Temp'; })
-                .on('mouseover', grtip.show)
-                .on('mouseout', grtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".gratingTemp.dot")
-                    .data(data)
-                    .remove();
-            }
-
-            //3. EnclosureTemp
-            if (plotEnclosureTemp) {
-            focuscircgrp.selectAll(".enclTemp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.enclosureTemp); });
-
-            focuscircgrp.selectAll(".enclTemp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".enclTemp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "enclTemp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.enclosureTemp); })
-                .attr("data-legend", function(d) { return 'Enclosure Temp'; })
-                .on('mouseover', encltmptip.show)
-                .on('mouseout', encltmptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".enclTemp.dot")
-                    .data(data)
-                    .remove();
-            }
-
-            //4. IodineTemp
-            if (plotIodineCellTemp) {
-            focuscircgrp.selectAll(".iodTemp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.iodineCellTemp); });
-
-            focuscircgrp.selectAll(".iodTemp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".iodTemp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "iodTemp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.iodineCellTemp); })
-                .attr("data-legend", function(d) { return 'Iodine Temp'; })
-                .on('mouseover', iodtmptip.show)
-                .on('mouseout', iodtmptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".iodTemp.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 4
-
-            //5. Enclosure Setpoint
-            if (plotEnclosureSetpoint) {
-            focuscircgrp.selectAll(".enclStpt.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.enclosureSetpoint); });
-
-            focuscircgrp.selectAll(".enclStpt.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".enclStpt.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "enclStpt dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.enclosureSetpoint); })
-                .attr("data-legend", function(d) { return 'Enclosure Setpoint'; })
-                .on('mouseover', enclsptip.show)
-                .on('mouseout', enclsptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".enclStpt.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 5
-
-            //6. Iodine Cell Setpoint
-            if (plotIodineCellSetpoint) {
-            focuscircgrp.selectAll(".iodStpt.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.iodineCellSetpoint); });
-
-            focuscircgrp.selectAll(".iodStpt.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".iodStpt.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "iodStpt dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.iodineCellSetpoint); })
-                .attr("data-legend", function(d) { return 'Iodine Setpoint'; })
-                .on('mouseover', iodsptip.show)
-                .on('mouseout', iodsptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".iodStpt.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 6
-
-            //7. Enclosure Temp 2
-            if (plotEnclosureTemp2) {
-            focuscircgrp.selectAll(".enclTemp2.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.enclosureTemp2); });
-
-            focuscircgrp.selectAll(".enclTemp2.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".enclTemp2.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "enclTemp2 dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.enclosureTemp2); })
-                .attr("data-legend", function(d) { return 'Enclosure Temp 2'; })
-                .on('mouseover', encltmp2tip.show)
-                .on('mouseout', encltmp2tip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".enclTemp2.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 7
-
-
-            //8. Table Temp Low
-            if (plotTableTempLow) {
-            focuscircgrp.selectAll(".tabTmpLow.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.tableTempLow); });
-
-            focuscircgrp.selectAll(".tabTmpLow.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".tabTmpLow.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "tabTmpLow dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.tableTempLow); })
-                .attr("data-legend", function(d) { return 'Table Temp Low'; })
-                .on('mouseover', ttlowtip.show)
-                .on('mouseout', ttlowtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".tabTmpLow.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 8
-
-
-            //9. Structure Temp
-            if (plotStructureTemp) {
-            focuscircgrp.selectAll(".strctrTemp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.structureTemp); });
-
-            focuscircgrp.selectAll(".strctrTemp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".strctrTemp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "strctrTemp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.structureTemp); })
-                .attr("data-legend", function(d) { return 'Structure Temp'; })
-                .on('mouseover', strtip.show)
-                .on('mouseout', strtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".strctrTemp.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 9
-
-
-            //10. Instrument Setpoint
-            if (plotInstrumentSetpoint) {
-            focuscircgrp.selectAll(".instrmntStpt.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.instrumentSetpoint); });
-
-            focuscircgrp.selectAll(".instrmntStpt.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".instrmntStpt.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "instrmntStpt dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.instrumentSetpoint); })
-                .attr("data-legend", function(d) { return 'Instrument Setpoint'; })
-                .on('mouseover', instsptip.show)
-                .on('mouseout', instsptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".instrmntStpt.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 10
-
-
-            //11. Instrument Temp
-            if (plotInstrumentTemp) {
-            focuscircgrp.selectAll(".instrmntTmp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.instrumentTemp); });
-
-            focuscircgrp.selectAll(".instrmntTmp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".instrmntTmp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "instrmntTmp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.instrumentTemp); })
-                .attr("data-legend", function(d) { return 'Instrument Temp'; })
-                .on('mouseover', instrmntTmptip.show)
-                .on('mouseout', instrmntTmptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".instrmntTmp.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 11
-
-
-            //12. Coude TEmp
-            if (plotCoudeTemp) {
-            focuscircgrp.selectAll(".coudeTmp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.coudeTemp); });
-
-            focuscircgrp.selectAll(".coudeTmp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".coudeTmp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "coudeTmp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.coudeTemp); })
-                .attr("data-legend", function(d) { return 'Coude Temp'; })
-                .on('mouseover', coudtip.show)
-                .on('mouseout', coudtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".coudeTmp.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 12
-
-
-            //13. Heater Setpoint
-            if (plotHeaterSetpoint) {
-            focuscircgrp.selectAll(".heaterStpt.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.heaterSetpoint); });
-
-            focuscircgrp.selectAll(".heaterStpt.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".heaterStpt.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "heaterStpt dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.heaterSetpoint); })
-                .attr("data-legend", function(d) { return 'Heater Setpoint'; })
-                .on('mouseover', htrtip.show)
-                .on('mouseout', htrtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".heaterStpt.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 13
-
-
-            //14. Barometer
-            if (plotBarometer) {
-            focuscircgrp.selectAll(".barometer.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.barometer); });
-
-            focuscircgrp.selectAll(".barometer.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".barometer.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "barometer dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.barometer); })
-                .attr("data-legend", function(d) { return 'Barometer'; })
-                .on('mouseover', baromtip.show)
-                .on('mouseout', baromtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".barometer.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 14
-
-
-            //15. Echelle Pressure
-            if (plotEchellePressure) {
-            focuscircgrp.selectAll(".echpres.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.echellePressure); });
-
-            focuscircgrp.selectAll(".echpres.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".echpres.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "echpres dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.echellePressure); })
-                .attr("data-legend", function(d) { return 'Echelle Pressure'; })
-                .on('mouseover', echprestip.show)
-                .on('mouseout', echprestip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".echpres.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 15
-
-
-            //16. CCD Temp
-            if (plotCcdTemp) {
-            focuscircgrp.selectAll(".ccdTmp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.ccdTemp); });
-
-            focuscircgrp.selectAll(".ccdTmp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".ccdTmp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "ccdTmp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.ccdTemp); })
-                .attr("data-legend", function(d) { return 'CCD Temp'; })
-                .on('mouseover', ccdtip.show)
-                .on('mouseout', ccdtip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".ccdTmp.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 16
-
-
-            //17. Neck Temp
-            if (plotNeckTemp) {
-            focuscircgrp.selectAll(".nckTmp.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.neckTemp); });
-
-            focuscircgrp.selectAll(".nckTmp.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".nckTmp.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "nckTmp dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.neckTemp); })
-                .attr("data-legend", function(d) { return 'Neck Temp'; })
-                .on('mouseover', ncktip.show)
-                .on('mouseout', ncktip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".nckTmp.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 17
-
-
-            //18. CCD Setpoint
-            if (plotCcdSetpoint) {
-            focuscircgrp.selectAll(".ccdStpt.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.ccdSetpoint); });
-
-            focuscircgrp.selectAll(".ccdStpt.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            focuscircgrp.selectAll(".ccdStpt.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "ccdStpt dot")
-                .attr('r', 2.5)
-                .attr('cx', function(d) { return xScale(d.date); })
-                .attr('cy', function(d) { return yScale(d.ccdSetpoint); })
-                .attr("data-legend", function(d) { return 'CCD Setpoint'; })
-                .on('mouseover', ccdsptip.show)
-                .on('mouseout', ccdsptip.hide)
-                .transition()
-                .duration(1000);
-            } else {
-                focuscircgrp.selectAll(".ccdStpt.dot")
-                    .data(data)
-                    .remove();
-            }
-            //end of 18
-
-            if (plotLegend) {
-                legend = svg.append("g")
-                  .attr("class","legend")
-                  .attr("transform","translate(90,30)")
-                  .call(d3.legend);
-            }
-
-            contextpathgrp.selectAll("path")
-                .datum(data)
-                .attr("class", "area")
-                .attr("d", area2)
-                .transition()
-                .duration(1000);
-//                .data(data)
-
-            contextpathgrp.select("path")
-                .remove();
-            
-            contextpathgrp
-                .append('path')
-                .datum(data)
-                .attr("class", "area")
-                .attr("d", area2);
-
-            //Update all focus data points:
-            contextcircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .transition()
-                .duration(1000)
-                .attr('cx', function(d) { return xScale2(d.date); })
-                .attr('cy', function(d) { return yScale2(d.tableCenterTemp); });
-
-            contextcircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .exit()
-                .remove();
-
-            contextcircgrp.selectAll(".tabcen.dot")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("class", "tabcen dot")
-                .attr('r', 3.5)
-                .attr('cx', function(d) { return xScale2(d.date); })
-                .attr('cy', function(d) { return yScale2(d.tableCenterTemp); })
-                .transition()
-                .duration(1000);
-
-
-            /*Now update the axes. */
-            // Update the X Axis
-            svg.select(".x.axis")
-                .transition()
-                .duration(1000)
-                .call(xAxis);
-
-            svg.select(".x.axis2")
-                .transition()
-                .duration(1000)
-                .call(xAxis2);
-
-            // Update the Y Axis
-            svg.select(".y.axis")
-                .transition()
-                .duration(1000)
-                .call(yAxis);
-
-            //Update X Axis Label:
-            focus.select(".x.label")
-                .attr("class", "x label")
-                .attr("x", width)
-                .attr("y", -6)
-                .style("text-anchor", "end")            
-                .text('Observation Date');
-
-            //Add y-label:
-            focus.select(".y.label")
-                .attr("class", "y label")
-                .attr("transform", "rotate(-90)")
-                .attr("x", -15)
-                .attr("y", 6)
-                .attr("dy", ".71em")
-                //.attr("x", width)
-                .style("text-anchor", "end")
-                .text('Temperature');
-
+          focuscircgrp.selectAll(dotClassMap[tempKey]).remove();
+          contextcircgrp.selectAll(dotClassMap[tempKey]).remove();
         }
+      });
 
-    });
+
+      if (plotLegend) {
+          legend = svg.append("g")
+            .attr("class","legend")
+            .attr("transform","translate(90,30)")
+            .call(d3.legend);
+      }
+
+      //Make the blue path in the context region:
+      contextpathgrp.selectAll("path")
+          .datum(data)
+          .attr("class", "area")
+          .attr("d", area2)
+          .transition()
+          .duration(1000);
+
+      contextpathgrp.select("path")
+          .remove();
+      
+      contextpathgrp
+          .append('path')
+          .datum(data)
+          .attr("class", "area")
+          .attr("d", area2);
+
+      context.append("g")
+          .attr("class", "x brush")
+          .call(brush)
+          .selectAll('rect')
+          .attr("y", -6)
+          .attr("height", height2 + 7);
+
+      /*Now update the axes. */
+      // Update the X Axis
+      svg.select(".x.axis")
+          .transition()
+          .duration(1000)
+          .call(xAxis);
+
+      svg.select(".x.axis2")
+          .transition()
+          .duration(1000)
+          .call(xAxis2);
+
+      // Update the Y Axis
+      svg.select(".y.axis")
+          .transition()
+          .duration(1000)
+          .call(yAxis);
+
+      //Update X Axis Label:
+      focus.select(".x.label")
+          .attr("class", "x label")
+          .attr("x", width)
+          .attr("y", -6)
+          .style("text-anchor", "end")            
+          .text('Observation Date');
+
+      //Add y-label:
+      focus.select(".y.label")
+          .attr("class", "y label")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -15)
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          //.attr("x", width)
+          .style("text-anchor", "end")
+          .text('Temperature');
+
+    }
+
+  });
 }
 
 function getMinValue(d) {
@@ -1294,4 +522,4 @@ function getMaxValue(d) {
     return newmax;
 }
 
-window.onload = plotInitTempPress(); //makeInitTimeSeriesPlot();
+window.onload = plotTempPress(); //makeInitTimeSeriesPlot();
