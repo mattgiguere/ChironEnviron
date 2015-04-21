@@ -290,6 +290,7 @@ function brushed() {
     xScale.domain(brush.empty() ? xScale2.domain() : brush.extent());
     focus.select(".area").attr("d", area);
     focus.select(".x.axis").call(xAxis);
+
     focuscircgrp.selectAll(".dot")
         .attr("cx", function(d) { return xScale(d.date); })
         .attr("cy", function(d) { return yScale(d.gratingTemp); });
@@ -310,9 +311,31 @@ if (plotLegend) {
     legend = svg.append("g");
 }
 
+
 function plotTempPress(param) {
-  console.log("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate);
-  d3.json("php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate, function(error, data) {
+  var phpCall = '';
+  if (plotGratingTemp) { phpCall += '&gratingTemp=True'};
+  if (plotTableCenterTemp) { phpCall += '&tableCenterTemp=True'};
+  if (plotEnclosureTemp) { phpCall += '&enclosureTemp=True'};
+  if (plotIodineCellTemp) { phpCall += '&iodineCellTemp=True'};
+  if (plotEnclosureSetpoint) { phpCall += '&enclosureSetpoint=True'};
+  if (plotIodineCellSetpoint) { phpCall += '&iodineCellSetpoint=True'};
+  if (plotEnclosureTemp2) { phpCall += '&enclosureTemp2=True'};
+  if (plotTableTempLow) { phpCall += '&tableTempLow=True'};
+  if (plotStructureTemp) { phpCall += '&structureTemp=True'};
+  if (plotInstrumentSetpoint) { phpCall += '&instrumentSetpoint=True'};
+  if (plotInstrumentTemp) { phpCall += '&instrumentTemp=True'};
+  if (plotCoudeTemp) { phpCall += '&coudeTemp=True'};
+  if (plotHeaterSetpoint) { phpCall += '&heaterSetpoint=True'};
+  if (plotBarometer) { phpCall += '&barometer=True'};
+  if (plotEchellePressure) { phpCall += '&echellePressure=True'};
+  if (plotCcdTemp) { phpCall += '&ccdTemp=True'};
+  if (plotNeckTemp) { phpCall += '&neckTemp=True'};
+  if (plotCcdSetpoint) { phpCall += '&ccdSetpoint=True'};
+
+  fullPhpCall = "php/getNewData.php?begDate="+begDate+"&endDate="+endDate+"&smplRate="+smplrate+phpCall;
+  console.log(fullPhpCall);
+  d3.json(fullPhpCall, function(error, data) {
     if (error) {
       console.log("There was an error loading the JSON blob.");
       console.log("The dates passed to getNewData.php were:");
@@ -322,7 +345,7 @@ function plotTempPress(param) {
     } else {
 
     console.log(data);
-    
+
       data.forEach(function(d) {
           d.date = parseDate(d.date);
           d.tableCenterTemp = +d.tableCenterTemp;
