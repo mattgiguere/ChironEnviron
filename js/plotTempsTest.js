@@ -341,12 +341,18 @@ function plotTempPress(param) {
       //////////////////////////////////////////////////
       mytemps.forEach(function(tempKey) {
 
-        console.log(tempKey);
         var newFocusDots = focuscircgrp
           .selectAll(dotClassMap[tempKey])
           .data(data);
+
+        var newContextDots = contextcircgrp
+          .selectAll(dotClassMap[tempKey])
+          .data(data)
         
         newFocusDots.exit()
+            .remove();
+
+        newContextDots.exit()
             .remove();
 
         if (setTemps[tempKey]) {
@@ -355,6 +361,12 @@ function plotTempPress(param) {
               .duration(1000)
               .attr('cx', function(d) { return xScale(d.date); })
               .attr('cy', function(d) { return yScale(d[tempKey]); });
+
+          newContextDots
+            .transition()
+            .duration(1000)
+            .attr('cx', function(d) { return xScale2(d.date); })
+            .attr('cy', function(d) { return yScale2(d[tempKey]); });
 
           newFocusDots
               .enter()
@@ -375,8 +387,22 @@ function plotTempPress(param) {
               .on('mouseout', function(){return tooltip.style("visibility", "hidden");})
               .transition()
               .duration(1000);          
+
+
+          newContextDots
+            .enter()
+            .append("circle")
+            .attr("class", addClassMap[tempKey])
+            .attr('r', 2.5)
+            .attr('cx', function(d) { return xScale2(d.date); })
+            .attr('cy', function(d) { return yScale2(d[tempKey]); })
+            .transition()
+            .duration(1000);
+
+
         } else {
           focuscircgrp.selectAll(dotClassMap[tempKey]).remove();
+          contextcircgrp.selectAll(dotClassMap[tempKey]).remove();
         }
       });
 
@@ -388,13 +414,13 @@ function plotTempPress(param) {
             .call(d3.legend);
       }
 
+      //Make the blue path in the context region:
       contextpathgrp.selectAll("path")
           .datum(data)
           .attr("class", "area")
           .attr("d", area2)
           .transition()
           .duration(1000);
-//                .data(data)
 
       contextpathgrp.select("path")
           .remove();
@@ -404,30 +430,6 @@ function plotTempPress(param) {
           .datum(data)
           .attr("class", "area")
           .attr("d", area2);
-
-      contextcircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      //Update all focus data points:
-      contextcircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale2(d.date); })
-          .attr('cy', function(d) { return yScale2(d.tableCenterTemp); });
-
-      contextcircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "tabcen dot")
-          .attr('r', 3.5)
-          .attr('cx', function(d) { return xScale2(d.date); })
-          .attr('cy', function(d) { return yScale2(d.tableCenterTemp); })
-          .transition()
-          .duration(1000);
 
       context.append("g")
           .attr("class", "x brush")
