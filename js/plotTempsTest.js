@@ -344,19 +344,21 @@ function plotTempPress(param) {
       console.log(error);
     } else {
 
-    console.log(data);
-
-      data.forEach(function(d) {
-          d.date = parseDate(d.date);
-          d.tableCenterTemp = +d.tableCenterTemp;
-      });
-
       //declare 3 new vars: an empty object, a list, and a number:
       var tempsByMonitor = {},
           temps = d3.keys(data[0]).filter(function (d) { return d !== 'date'; }),
           n = temps.length;
       console.log(temps);
       console.log(n);
+
+      data.forEach(function(d) {
+          d.date = parseDate(d.date);
+          temps.forEach(function(k) {
+            d[k] = +d[k];
+          })
+      });
+
+    console.log(data);
 
       //now fill the tempsByMonitor object with the data:
       temps.forEach(function(temp) {
