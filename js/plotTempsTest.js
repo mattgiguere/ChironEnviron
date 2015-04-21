@@ -29,161 +29,15 @@ var xScale2 = d3.time.scale().range([0, width]);
 var yScale = d3.scale.linear().range([height, 0]);
 var yScale2 = d3.scale.linear().range([height2, 0]);
 
-//set the default tempkey:
-var currentTempKey = 'gratingTemp';
-
 //add tool-tips:
-var dottooltip = d3.tip()
-    .attr('class', 'd3-tip')
-    .offset([-10, 0])
-    .html(function(d) {
-      return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-              "<p><strong>" + descriptionMap[currentTempKey] + ":</strong> <span style='color:#428BCA'>" + d[currentTempKey] + "</span></p>";
-    });
-
-var tctip = d3.tip()
+var tooltip = d3.select("body")
+  .append("div")
   .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>" + currentTempKey + ":</strong> <span style='color:#428BCA'>" + d.tableCenterTemp + "</span></p>";
-  });
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("visibility", "hidden")
+  .text("a simple tooltip");
 
-var grtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Grating Temp (C):</strong> <span style='color:#428BCA'>" + d.gratingTemp + "</span></p>";
-  });
-
-var encltmptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Enclosure Temp (C):</strong> <span style='color:#428BCA'>" + d.enclosureTemp + "</span></p>";
-  });
-
-var iodtmptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Iodine Temp (C):</strong> <span style='color:#428BCA'>" + d.iodineCellTemp + "</span></p>";
-  });
-
-var enclsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Enclosure Setpoint (C):</strong> <span style='color:#428BCA'>" + d.enclosureSetpoint + "</span></p>";
-  });
-
-var iodsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Iodine Setpoint (C):</strong> <span style='color:#428BCA'>" + d.iodineCellSetpoint + "</span></p>";
-  });
-
-var encltmp2tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Enclosure Temp 2 (C):</strong> <span style='color:#428BCA'>" + d.enclosureTemp2 + "</span></p>";
-  });
-
-var ttlowtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Table Temp Low(C):</strong> <span style='color:#428BCA'>" + d.tableTempLow + "</span></p>";
-  });
-
-var strtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Structure Temp (C):</strong> <span style='color:#428BCA'>" + d.structureTemp + "</span></p>";
-  });
-
-var instsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Instrument Setpoint (C):</strong> <span style='color:#428BCA'>" + d.instrumentSetpoint + "</span></p>";
-  });
-
-var instrmntTmptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Instrument Temp (C):</strong> <span style='color:#428BCA'>" + d.instrumentTemp + "</span></p>";
-  });
-
-var coudtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Coude Temp (C):</strong> <span style='color:#428BCA'>" + d.coudeTemp + "</span></p>";
-  });
-
-var htrtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Heater Setpoint (C):</strong> <span style='color:#428BCA'>" + d.heaterSetpoint + "</span></p>";
-  });
-
-var baromtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Barometer Temp (mbar):</strong> <span style='color:#428BCA'>" + d.barometer + "</span></p>";
-  });
-
-var echprestip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Echelle Pressure (mbar):</strong> <span style='color:#428BCA'>" + d.echellePressure + "</span></p>";
-  });
-
-var ccdtip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>CCD Temp (C):</strong> <span style='color:#428BCA'>" + d.ccdTemp + "</span></p>";
-  });
-
-var ncktip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Neck Temp (C):</strong> <span style='color:#428BCA'>" + d.neckTemp + "</span></p>";
-  });
-
-var ccdsptip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>CCD Setpoint (C):</strong> <span style='color:#428BCA'>" + d.ccdSetpoint + "</span></p>";
-  });
 
 // Define the axes
 var xAxis = d3.svg.axis()
@@ -225,25 +79,6 @@ var svg = d3.select(".d3-plot-window")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
-
-svg.call(tctip);
-svg.call(grtip);
-svg.call(encltmptip);
-svg.call(iodtmptip);
-svg.call(enclsptip);
-svg.call(iodsptip);
-svg.call(encltmp2tip);
-svg.call(ttlowtip);
-svg.call(strtip);
-svg.call(instsptip);
-svg.call(instrmntTmptip);
-svg.call(coudtip);
-svg.call(htrtip);
-svg.call(baromtip);
-svg.call(echprestip);
-svg.call(ccdtip);
-svg.call(ncktip);
-svg.call(ccdsptip);
 
 svg.append("defs").append("clipPath")
     .attr("id", "clip")
@@ -293,6 +128,10 @@ yAxisSVG.append("text")
     .style("text-anchor", "end")
     .text('Temperature');
 
+var xAxis2SVG = context.append("g")
+          .attr("class", "x axis2")
+          .attr("transform", "translate(0," + height2 + ")")
+          .call(xAxis2);
 
 var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp",
                "iodineCellTemp", "enclosureSetpoint", "iodineCellSetpoint",
@@ -300,27 +139,6 @@ var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp",
                "instrumentSetpoint", "instrumentTemp", "coudeTemp",
                "heaterSetpoint", "barometer", "echellePressure",
                "ccdTemp", "neckTemp", "ccdSetpoint"];
-
-var setTemps = {
-  "gratingTemp": plotGratingTemp,
-  "tableCenterTemp": plotTableCenterTemp,
-  "enclosureTemp": plotEnclosureTemp,
-  "iodineCellTemp": plotIodineCellTemp,
-  "enclosureSetpoint": plotEnclosureSetpoint,
-  "iodineCellSetpoint": plotIodineCellSetpoint,
-  "enclosureTemp2": plotEnclosureTemp2,
-  "tableTempLow": plotTableTempLow,
-  "structureTemp": plotStructureTemp,
-  "instrumentSetpoint": plotInstrumentSetpoint,
-  "instrumentTemp": plotInstrumentTemp,
-  "coudeTemp": plotCoudeTemp,
-  "heaterSetpoint": plotHeaterSetpoint,
-  "barometer": plotBarometer,
-  "echellePressure": plotEchellePressure,
-  "ccdTemp": plotCcdTemp,
-  "neckTemp": plotNeckTemp,
-  "ccdSetpoint": plotCcdSetpoint
-}
 
 var dotClassMap = {
   "gratingTemp": ".gratingTemp.dot",
@@ -365,24 +183,24 @@ var addClassMap = {
 }
 
 var descriptionMap = {
-  "gratingTemp": "Grating Temp",
-  "tableCenterTemp": "Table Center",
-  "enclosureTemp": "Enclosure Temp",
-  "iodineCellTemp": "Iodine Temp",
-  "enclosureSetpoint": "Enclosure Setpoint",
-  "iodineCellSetpoint": "iodStpt dot",
-  "enclosureTemp2": "enclTemp2 dot",
-  "tableTempLow": "tabTmpLow dot",
-  "structureTemp": "strctrTemp dot",
-  "instrumentSetpoint": "instrmntStpt dot",
-  "instrumentTemp": "instrmntTmp dot",
-  "coudeTemp": "coudeTmp dot",
-  "heaterSetpoint": "heaterStpt dot",
-  "barometer": "barometer dot",
-  "echellePressure": "echpres dot",
-  "ccdTemp": "ccdTmp dot",
-  "neckTemp": "nckTmp dot",
-  "ccdSetpoint": "ccdStpt dot"
+  "gratingTemp": "Grating Temp (C)",
+  "tableCenterTemp": "Table Center (C)",
+  "enclosureTemp": "Enclosure Temp (C)",
+  "iodineCellTemp": "Iodine Temp (C)",
+  "enclosureSetpoint": "Enclosure Setpoint (C)",
+  "iodineCellSetpoint": "Iodine Cell Setpoint (C)",
+  "enclosureTemp2": "Enclosure Temp 2 (C)",
+  "tableTempLow": "Table Temp Low (C)",
+  "structureTemp": "Structure Temp (C)",
+  "instrumentSetpoint": "Instrument Setpoint (C)",
+  "instrumentTemp": "Instrument Temp (C)",
+  "coudeTemp": "Coude Room Temp (C)",
+  "heaterSetpoint": "Heater Setpoint (C)",
+  "barometer": "Barometer Pressure (mbar)",
+  "echellePressure": "Echelle Grating Pressure (mbar)",
+  "ccdTemp": "CCD Temp (C)",
+  "neckTemp": "Dewar Neck Temp (C)",
+  "ccdSetpoint": "CCD Setpoint (C)"
 }
 
 /* ***End D3 Global Variables*** */
@@ -422,6 +240,28 @@ if (plotLegend) {
 
 
 function plotTempPress(param) {
+
+  var setTemps = {
+    "gratingTemp": plotGratingTemp,
+    "tableCenterTemp": plotTableCenterTemp,
+    "enclosureTemp": plotEnclosureTemp,
+    "iodineCellTemp": plotIodineCellTemp,
+    "enclosureSetpoint": plotEnclosureSetpoint,
+    "iodineCellSetpoint": plotIodineCellSetpoint,
+    "enclosureTemp2": plotEnclosureTemp2,
+    "tableTempLow": plotTableTempLow,
+    "structureTemp": plotStructureTemp,
+    "instrumentSetpoint": plotInstrumentSetpoint,
+    "instrumentTemp": plotInstrumentTemp,
+    "coudeTemp": plotCoudeTemp,
+    "heaterSetpoint": plotHeaterSetpoint,
+    "barometer": plotBarometer,
+    "echellePressure": plotEchellePressure,
+    "ccdTemp": plotCcdTemp,
+    "neckTemp": plotNeckTemp,
+    "ccdSetpoint": plotCcdSetpoint
+  }
+
   var phpCall = '';
   if (plotGratingTemp) { phpCall += '&gratingTemp=True'};
   if (plotTableCenterTemp) { phpCall += '&tableCenterTemp=True'};
@@ -495,18 +335,6 @@ function plotTempPress(param) {
           .attr('cx', function(d) { return xScale2(d.date); })
           .attr('cy', function(d) { return yScale2(d.tableCenterTemp); });
 
-      context.append("g")
-          .attr("class", "x axis2")
-          .attr("transform", "translate(0," + height2 + ")")
-          .call(xAxis2);
-
-      context.append("g")
-          .attr("class", "x brush")
-          .call(brush)
-          .selectAll('rect')
-          .attr("y", -6)
-          .attr("height", height2 + 7);
-
       //Remove the legend to start fresh:
       legend.selectAll('g').remove();
 
@@ -523,16 +351,13 @@ function plotTempPress(param) {
         newdots.exit()
             .remove();
 
+        newdots
+            .transition()
+            .duration(1000)
+            .attr('cx', function(d) { return xScale(d.date); })
+            .attr('cy', function(d) { return yScale(d[tempKey]); });
+
         if (setTemps[tempKey]) {
-
-          currentTempKey = tempKey;
-
-          newdots
-              .transition()
-              .duration(1000)
-              .attr('cx', function(d) { return xScale(d.date); })
-              .attr('cy', function(d) { return yScale(d[tempKey]); });
-
           newdots
               .enter()
               .append("circle")
@@ -541,10 +366,17 @@ function plotTempPress(param) {
               .attr('cx', function(d) { return xScale(d.date); })
               .attr('cy', function(d) { return yScale(d[tempKey]); })
               .attr("data-legend",function(d) { return descriptionMap[tempKey]; })
-              .on('mouseover', tctip.show)
-              .on('mouseout', tctip.hide)
+              .on('mouseover', function(d){
+                var content = "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>";
+                content += "<p><strong>" + descriptionMap[tempKey] + ":</strong> <span style='color:#428BCA'>" + d[tempKey] + "</span></p>";
+                return tooltip
+                  .style("visibility", "visible")
+                  .html(content);
+              })
+              .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+              .on('mouseout', function(){return tooltip.style("visibility", "hidden");})
               .transition()
-              .duration(1000);
+              .duration(1000);          
         }
       });
 
@@ -597,6 +429,12 @@ function plotTempPress(param) {
           .transition()
           .duration(1000);
 
+      context.append("g")
+          .attr("class", "x brush")
+          .call(brush)
+          .selectAll('rect')
+          .attr("y", -6)
+          .attr("height", height2 + 7);
 
       /*Now update the axes. */
       // Update the X Axis
