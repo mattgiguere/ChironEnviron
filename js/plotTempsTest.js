@@ -223,12 +223,6 @@ function brushed() {
         .attr("cy", function(d) { return yScale(d.gratingTemp); }); */
 }
 
-function type(d) {
-    d.date = parseDate(d.date);
-    d.tableCenterTemp = +d.tableCenterTemp;
-    return d;
-}
-
 if (plotLegend) {
     legend = svg.append("g")
       .attr("class","legend")
@@ -237,7 +231,6 @@ if (plotLegend) {
 } else {
     legend = svg.append("g");
 }
-
 
 function plotTempPress(param) {
 
