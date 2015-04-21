@@ -290,6 +290,27 @@ var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp",
                "heaterSetpoint", "barometer", "echellePressure",
                "ccdTemp", "neckTemp", "ccdSetpoint"];
 
+var setTemps = {
+  "gratingTemp": plotGratingTemp,
+  "tableCenterTemp": plotTableCenterTemp,
+  "enclosureTemp": plotEnclosureTemp,
+  "iodineCellTemp": plotIodineCellTemp,
+  "enclosureSetpoint": plotEnclosureSetpoint,
+  "iodineCellSetpoint": plotIodineCellSetpoint,
+  "enclosureTemp2": plotEnclosureTemp2,
+  "tableTempLow": plotTableTempLow,
+  "structureTemp": plotStructureTemp,
+  "instrumentSetpoint": plotInstrumentSetpoint,
+  "instrumentTemp": plotInstrumentTemp,
+  "coudeTemp": plotCoudeTemp,
+  "heaterSetpoint": plotHeaterSetpoint,
+  "barometer": plotBarometer,
+  "echellePressure": plotEchellePressure,
+  "ccdTemp": plotCcdTemp,
+  "neckTemp": plotNeckTemp,
+  "ccdSetpoint": plotCcdSetpoint
+}
+
 var dotClassMap = {
   "gratingTemp": ".gratingTemp.dot",
   "tableCenterTemp": ".tabcen.dot",
@@ -310,6 +331,50 @@ var dotClassMap = {
   "neckTemp": ".nckTmp.dot",
   "ccdSetpoint": ".ccdStpt.dot"
 }
+
+var addClassMap = {
+  "gratingTemp": "gratingTemp dot",
+  "tableCenterTemp": "tabcen dot",
+  "enclosureTemp": "enclTemp dot",
+  "iodineCellTemp": "iodTemp dot",
+  "enclosureSetpoint": "enclStpt dot",
+  "iodineCellSetpoint": "iodStpt dot",
+  "enclosureTemp2": "enclTemp2 dot",
+  "tableTempLow": "tabTmpLow dot",
+  "structureTemp": "strctrTemp dot",
+  "instrumentSetpoint": "instrmntStpt dot",
+  "instrumentTemp": "instrmntTmp dot",
+  "coudeTemp": "coudeTmp dot",
+  "heaterSetpoint": "heaterStpt dot",
+  "barometer": "barometer dot",
+  "echellePressure": "echpres dot",
+  "ccdTemp": "ccdTmp dot",
+  "neckTemp": "nckTmp dot",
+  "ccdSetpoint": "ccdStpt dot"
+}
+
+var legendNameMap = {
+  "gratingTemp": "Grating Temp",
+  "tableCenterTemp": "Table Center",
+  "enclosureTemp": "Enclosure Temp",
+  "iodineCellTemp": "Iodine Temp",
+  "enclosureSetpoint": "Enclosure Setpoint",
+  "iodineCellSetpoint": "iodStpt dot",
+  "enclosureTemp2": "enclTemp2 dot",
+  "tableTempLow": "tabTmpLow dot",
+  "structureTemp": "strctrTemp dot",
+  "instrumentSetpoint": "instrmntStpt dot",
+  "instrumentTemp": "instrmntTmp dot",
+  "coudeTemp": "coudeTmp dot",
+  "heaterSetpoint": "heaterStpt dot",
+  "barometer": "barometer dot",
+  "echellePressure": "echpres dot",
+  "ccdTemp": "ccdTmp dot",
+  "neckTemp": "nckTmp dot",
+  "ccdSetpoint": "ccdStpt dot"
+}
+
+
 
 /* ***End D3 Global Variables*** */
 function brushed() {
@@ -442,625 +507,38 @@ function plotTempPress(param) {
       //////////////////////////////////////////////////
       //Update all focus data points:
       //////////////////////////////////////////////////
-      //1. TableCenterTemp
-      if (plotTableCenterTemp) {
-      focuscircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.tableCenterTemp); });
+      mytemps.forEach(function(tempKey) {
 
-      focuscircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .exit()
-          .remove();
+        //console.log(tempKey);
 
-      focuscircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "tabcen dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.tableCenterTemp); })
-          .attr("data-legend",function(d) { return 'Grating Temp'; })
-          .on('mouseover', tctip.show)
-          .on('mouseout', tctip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".tabcen.dot")
+        focuscircgrp.selectAll(dotClassMap[tempKey])
+            .data(data)
+            .remove();
+
+        if (setTemps[tempKey]) {
+          focuscircgrp.selectAll(dotClassMap[tempKey])
               .data(data)
-              .remove();
-          }
+              .transition()
+              .duration(1000)
+              .attr('cx', function(d) { return xScale(d.date); })
+              .attr('cy', function(d) { return yScale(d[tempKey]); });
 
-      //2. GratingTemp
-      if (plotGratingTemp) {
-      focuscircgrp.selectAll(".gratingTemp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.gratingTemp); });
-
-      focuscircgrp.selectAll(".gratingTemp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".gratingTemp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "gratingTemp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.gratingTemp); })
-          .attr("data-legend", function(d) { return 'Grating Temp'; })
-          .on('mouseover', grtip.show)
-          .on('mouseout', grtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".gratingTemp.dot")
+          focuscircgrp.selectAll(dotClassMap[tempKey])
               .data(data)
-              .remove();
-      }
+              .enter()
+              .append("circle")
+              .attr("class", addClassMap[tempKey])
+              .attr('r', 2.5)
+              .attr('cx', function(d) { return xScale(d.date); })
+              .attr('cy', function(d) { return yScale(d[tempKey]); })
+              .attr("data-legend",function(d) { return legendNameMap[tempKey]; })
+              .on('mouseover', tctip.show)
+              .on('mouseout', tctip.hide)
+              .transition()
+              .duration(1000);
+        }
+      });
 
-      //3. EnclosureTemp
-      if (plotEnclosureTemp) {
-      focuscircgrp.selectAll(".enclTemp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.enclosureTemp); });
-
-      focuscircgrp.selectAll(".enclTemp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".enclTemp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "enclTemp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.enclosureTemp); })
-          .attr("data-legend", function(d) { return 'Enclosure Temp'; })
-          .on('mouseover', encltmptip.show)
-          .on('mouseout', encltmptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".enclTemp.dot")
-              .data(data)
-              .remove();
-      }
-
-      //4. IodineTemp
-      if (plotIodineCellTemp) {
-      focuscircgrp.selectAll(".iodTemp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.iodineCellTemp); });
-
-      focuscircgrp.selectAll(".iodTemp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".iodTemp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "iodTemp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.iodineCellTemp); })
-          .attr("data-legend", function(d) { return 'Iodine Temp'; })
-          .on('mouseover', iodtmptip.show)
-          .on('mouseout', iodtmptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".iodTemp.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 4
-
-      //5. Enclosure Setpoint
-      if (plotEnclosureSetpoint) {
-      focuscircgrp.selectAll(".enclStpt.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.enclosureSetpoint); });
-
-      focuscircgrp.selectAll(".enclStpt.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".enclStpt.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "enclStpt dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.enclosureSetpoint); })
-          .attr("data-legend", function(d) { return 'Enclosure Setpoint'; })
-          .on('mouseover', enclsptip.show)
-          .on('mouseout', enclsptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".enclStpt.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 5
-
-      //6. Iodine Cell Setpoint
-      if (plotIodineCellSetpoint) {
-      focuscircgrp.selectAll(".iodStpt.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.iodineCellSetpoint); });
-
-      focuscircgrp.selectAll(".iodStpt.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".iodStpt.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "iodStpt dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.iodineCellSetpoint); })
-          .attr("data-legend", function(d) { return 'Iodine Setpoint'; })
-          .on('mouseover', iodsptip.show)
-          .on('mouseout', iodsptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".iodStpt.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 6
-
-      //7. Enclosure Temp 2
-      if (plotEnclosureTemp2) {
-      focuscircgrp.selectAll(".enclTemp2.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.enclosureTemp2); });
-
-      focuscircgrp.selectAll(".enclTemp2.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".enclTemp2.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "enclTemp2 dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.enclosureTemp2); })
-          .attr("data-legend", function(d) { return 'Enclosure Temp 2'; })
-          .on('mouseover', encltmp2tip.show)
-          .on('mouseout', encltmp2tip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".enclTemp2.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 7
-
-
-      //8. Table Temp Low
-      if (plotTableTempLow) {
-      focuscircgrp.selectAll(".tabTmpLow.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.tableTempLow); });
-
-      focuscircgrp.selectAll(".tabTmpLow.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".tabTmpLow.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "tabTmpLow dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.tableTempLow); })
-          .attr("data-legend", function(d) { return 'Table Temp Low'; })
-          .on('mouseover', ttlowtip.show)
-          .on('mouseout', ttlowtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".tabTmpLow.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 8
-
-
-      //9. Structure Temp
-      if (plotStructureTemp) {
-      focuscircgrp.selectAll(".strctrTemp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.structureTemp); });
-
-      focuscircgrp.selectAll(".strctrTemp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".strctrTemp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "strctrTemp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.structureTemp); })
-          .attr("data-legend", function(d) { return 'Structure Temp'; })
-          .on('mouseover', strtip.show)
-          .on('mouseout', strtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".strctrTemp.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 9
-
-
-      //10. Instrument Setpoint
-      if (plotInstrumentSetpoint) {
-      focuscircgrp.selectAll(".instrmntStpt.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.instrumentSetpoint); });
-
-      focuscircgrp.selectAll(".instrmntStpt.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".instrmntStpt.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "instrmntStpt dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.instrumentSetpoint); })
-          .attr("data-legend", function(d) { return 'Instrument Setpoint'; })
-          .on('mouseover', instsptip.show)
-          .on('mouseout', instsptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".instrmntStpt.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 10
-
-
-      //11. Instrument Temp
-      if (plotInstrumentTemp) {
-      focuscircgrp.selectAll(".instrmntTmp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.instrumentTemp); });
-
-      focuscircgrp.selectAll(".instrmntTmp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".instrmntTmp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "instrmntTmp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.instrumentTemp); })
-          .attr("data-legend", function(d) { return 'Instrument Temp'; })
-          .on('mouseover', instrmntTmptip.show)
-          .on('mouseout', instrmntTmptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".instrmntTmp.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 11
-
-
-      //12. Coude TEmp
-      if (plotCoudeTemp) {
-      focuscircgrp.selectAll(".coudeTmp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.coudeTemp); });
-
-      focuscircgrp.selectAll(".coudeTmp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".coudeTmp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "coudeTmp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.coudeTemp); })
-          .attr("data-legend", function(d) { return 'Coude Temp'; })
-          .on('mouseover', coudtip.show)
-          .on('mouseout', coudtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".coudeTmp.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 12
-
-
-      //13. Heater Setpoint
-      if (plotHeaterSetpoint) {
-      focuscircgrp.selectAll(".heaterStpt.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.heaterSetpoint); });
-
-      focuscircgrp.selectAll(".heaterStpt.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".heaterStpt.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "heaterStpt dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.heaterSetpoint); })
-          .attr("data-legend", function(d) { return 'Heater Setpoint'; })
-          .on('mouseover', htrtip.show)
-          .on('mouseout', htrtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".heaterStpt.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 13
-
-
-      //14. Barometer
-      if (plotBarometer) {
-      focuscircgrp.selectAll(".barometer.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.barometer); });
-
-      focuscircgrp.selectAll(".barometer.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".barometer.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "barometer dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.barometer); })
-          .attr("data-legend", function(d) { return 'Barometer'; })
-          .on('mouseover', baromtip.show)
-          .on('mouseout', baromtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".barometer.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 14
-
-
-      //15. Echelle Pressure
-      if (plotEchellePressure) {
-      focuscircgrp.selectAll(".echpres.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.echellePressure); });
-
-      focuscircgrp.selectAll(".echpres.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".echpres.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "echpres dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.echellePressure); })
-          .attr("data-legend", function(d) { return 'Echelle Pressure'; })
-          .on('mouseover', echprestip.show)
-          .on('mouseout', echprestip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".echpres.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 15
-
-
-      //16. CCD Temp
-      if (plotCcdTemp) {
-      focuscircgrp.selectAll(".ccdTmp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.ccdTemp); });
-
-      focuscircgrp.selectAll(".ccdTmp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".ccdTmp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "ccdTmp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.ccdTemp); })
-          .attr("data-legend", function(d) { return 'CCD Temp'; })
-          .on('mouseover', ccdtip.show)
-          .on('mouseout', ccdtip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".ccdTmp.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 16
-
-
-      //17. Neck Temp
-      if (plotNeckTemp) {
-      focuscircgrp.selectAll(".nckTmp.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.neckTemp); });
-
-      focuscircgrp.selectAll(".nckTmp.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".nckTmp.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "nckTmp dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.neckTemp); })
-          .attr("data-legend", function(d) { return 'Neck Temp'; })
-          .on('mouseover', ncktip.show)
-          .on('mouseout', ncktip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".nckTmp.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 17
-
-
-      //18. CCD Setpoint
-      if (plotCcdSetpoint) {
-      focuscircgrp.selectAll(".ccdStpt.dot")
-          .data(data)
-          .transition()
-          .duration(1000)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.ccdSetpoint); });
-
-      focuscircgrp.selectAll(".ccdStpt.dot")
-          .data(data)
-          .exit()
-          .remove();
-
-      focuscircgrp.selectAll(".ccdStpt.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "ccdStpt dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.ccdSetpoint); })
-          .attr("data-legend", function(d) { return 'CCD Setpoint'; })
-          .on('mouseover', ccdsptip.show)
-          .on('mouseout', ccdsptip.hide)
-          .transition()
-          .duration(1000);
-      } else {
-          focuscircgrp.selectAll(".ccdStpt.dot")
-              .data(data)
-              .remove();
-      }
-      //end of 18
 
       if (plotLegend) {
           legend = svg.append("g")
