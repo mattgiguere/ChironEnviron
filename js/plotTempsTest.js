@@ -283,7 +283,33 @@ yAxisSVG.append("text")
     .text('Temperature');
 
 
-var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp", "iodineCellTemp", "enclosureSetpoint", "iodineCellSetpoint", "enclosureTemp2", "tableTempLow", "structureTemp", "instrumentSetpoint", "instrumentTemp", "coudeTemp", "heaterSetpoint", "barometer", "echellePressure", "ccdTemp", "neckTemp", "ccdSetpoint"];
+var mytemps = ["gratingTemp", "tableCenterTemp", "enclosureTemp",
+               "iodineCellTemp", "enclosureSetpoint", "iodineCellSetpoint",
+               "enclosureTemp2", "tableTempLow", "structureTemp",
+               "instrumentSetpoint", "instrumentTemp", "coudeTemp",
+               "heaterSetpoint", "barometer", "echellePressure",
+               "ccdTemp", "neckTemp", "ccdSetpoint"];
+
+var dotClassMap = {
+  "gratingTemp": ".gratingTemp.dot",
+  "tableCenterTemp": ".tabcen.dot",
+  "enclosureTemp": ".enclTemp.dot",
+  "iodineCellTemp": ".iodTemp.dot",
+  "enclosureSetpoint": ".enclStpt.dot",
+  "iodineCellSetpoint": ".iodStpt.dot",
+  "enclosureTemp2": ".enclTemp2.dot",
+  "tableTempLow": ".tabTmpLow.dot",
+  "structureTemp": ".strctrTemp.dot",
+  "instrumentSetpoint": ".instrmntStpt.dot",
+  "instrumentTemp": ".instrmntTmp.dot",
+  "coudeTemp": ".coudeTmp.dot",
+  "heaterSetpoint": ".heaterStpt.dot",
+  "barometer": ".barometer.dot",
+  "echellePressure": ".echpres.dot",
+  "ccdTemp": ".ccdTmp.dot",
+  "neckTemp": ".nckTmp.dot",
+  "ccdSetpoint": ".ccdStpt.dot"
+}
 
 /* ***End D3 Global Variables*** */
 function brushed() {
