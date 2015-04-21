@@ -29,13 +29,24 @@ var xScale2 = d3.time.scale().range([0, width]);
 var yScale = d3.scale.linear().range([height, 0]);
 var yScale2 = d3.scale.linear().range([height2, 0]);
 
+//set the default tempkey:
+var currentTempKey = 'gratingTemp';
+
 //add tool-tips:
+var dottooltip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+      return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
+              "<p><strong>" + descriptionMap[currentTempKey] + ":</strong> <span style='color:#428BCA'>" + d[currentTempKey] + "</span></p>";
+    });
+
 var tctip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
     return "<p><strong>Date:</strong> <span style='color:#428BCA'>" + d.date + "</span></p>" +
-            "<p><strong>Table Center Temp (C):</strong> <span style='color:#428BCA'>" + d.tableCenterTemp + "</span></p>";
+            "<p><strong>" + currentTempKey + ":</strong> <span style='color:#428BCA'>" + d.tableCenterTemp + "</span></p>";
   });
 
 var grtip = d3.tip()
@@ -353,7 +364,7 @@ var addClassMap = {
   "ccdSetpoint": "ccdStpt dot"
 }
 
-var legendNameMap = {
+var descriptionMap = {
   "gratingTemp": "Grating Temp",
   "tableCenterTemp": "Table Center",
   "enclosureTemp": "Enclosure Temp",
@@ -373,8 +384,6 @@ var legendNameMap = {
   "neckTemp": "nckTmp dot",
   "ccdSetpoint": "ccdStpt dot"
 }
-
-
 
 /* ***End D3 Global Variables*** */
 function brushed() {
@@ -463,18 +472,6 @@ function plotTempPress(param) {
       xScale2.domain(xScale.domain());
       yScale2.domain(yScale.domain());
 
-      focuscircgrp.selectAll(".tabcen.dot")
-          .data(data)
-          .enter()
-          .append("circle")
-          .attr("class", "tabcen dot")
-          .attr('r', 2.5)
-          .attr('cx', function(d) { return xScale(d.date); })
-          .attr('cy', function(d) { return yScale(d.tableCenterTemp); })
-          .attr("data-legend",function(d) { return 'Table Center'; })
-          .on('mouseover', tctip.show)
-          .on('mouseout', tctip.hide);
-
       contextpathgrp.append("path")
           .datum(data)
           .attr("class", "area")
@@ -510,28 +507,31 @@ function plotTempPress(param) {
       mytemps.forEach(function(tempKey) {
 
         //console.log(tempKey);
-
-        focuscircgrp.selectAll(dotClassMap[tempKey])
-            .data(data)
+        var newdots = focuscircgrp
+          .selectAll(dotClassMap[tempKey])
+          .data(data);
+        
+        newdots.exit()
             .remove();
 
         if (setTemps[tempKey]) {
-          focuscircgrp.selectAll(dotClassMap[tempKey])
-              .data(data)
+
+          currentTempKey = tempKey;
+
+          newdots
               .transition()
               .duration(1000)
               .attr('cx', function(d) { return xScale(d.date); })
               .attr('cy', function(d) { return yScale(d[tempKey]); });
 
-          focuscircgrp.selectAll(dotClassMap[tempKey])
-              .data(data)
+          newdots
               .enter()
               .append("circle")
               .attr("class", addClassMap[tempKey])
               .attr('r', 2.5)
               .attr('cx', function(d) { return xScale(d.date); })
               .attr('cy', function(d) { return yScale(d[tempKey]); })
-              .attr("data-legend",function(d) { return legendNameMap[tempKey]; })
+              .attr("data-legend",function(d) { return descriptionMap[tempKey]; })
               .on('mouseover', tctip.show)
               .on('mouseout', tctip.hide)
               .transition()
