@@ -1,8 +1,6 @@
 <?php
     ini_set('memory_limit', '256M');
     //$afspath = $_SERVER["AeroFSdir"];
-    $pltpar = $_GET['param'];
-    $sqltblnm = $_GET['tablenm'];
     $begDate = $_GET['begDate'];
     $endDate = $_GET['endDate'];
     $smplRate = $_GET['smplRate'];
@@ -56,27 +54,133 @@
 
     $whereclause = 'WHERE ';
 
-    if (isset($_GET['objectnm'])){
-        $objectnm = $_GET['objectnm'];
-        $whereclause += 'o.object = ' . $objectnm;
+    $selection = 'sampleTime as date';
+
+    if (isset($_GET['gratingTemp'])){
+        if ($_GET['gratingTemp'] == 'True'){
+            $selection = $selection . ', gratingTemp';
+        }
     }
 
+    if (isset($_GET['tableCenterTemp'])){
+        if ($_GET['tableCenterTemp'] == 'True'){
+            $selection = $selection . ', tableCenterTemp';
+        }
+    }
+
+    if (isset($_GET['enclosureTemp'])){
+        if ($_GET['enclosureTemp'] == 'True'){
+            $selection = $selection . ', enclosureTemp';
+        }
+    }
+
+    if (isset($_GET['iodineCellTemp'])){
+        if ($_GET['iodineCellTemp'] == 'True'){
+            $selection = $selection . ', iodineCellTemp';
+        }
+    }
+
+    if (isset($_GET['enclosureSetpoint'])){
+        if ($_GET['enclosureSetpoint'] == 'True'){
+            $selection = $selection . ', enclosureSetpoint';
+        }
+    }
+
+    if (isset($_GET['iodineCellSetpoint'])){
+        if ($_GET['iodineCellSetpoint'] == 'True'){
+            $selection = $selection . ', iodineCellSetpoint';
+        }
+    }
+
+    if (isset($_GET['enclosureTemp2'])){
+        if ($_GET['enclosureTemp2'] == 'True'){
+            $selection = $selection . ', enclosureTemp2';
+        }
+    }
+
+    if (isset($_GET['tableTempLow'])){
+        if ($_GET['tableTempLow'] == 'True'){
+            $selection = $selection . ', tableTempLow';
+        }
+    }
+
+    if (isset($_GET['structureTemp'])){
+        if ($_GET['structureTemp'] == 'True'){
+            $selection = $selection . ', structureTemp';
+        }
+    }
+
+    if (isset($_GET['instrumentSetpoint'])){
+        if ($_GET['instrumentSetpoint'] == 'True'){
+            $selection = $selection . ', instrumentSetpoint';
+        }
+    }
+
+    if (isset($_GET['instrumentTemp'])){
+        if ($_GET['instrumentTemp'] == 'True'){
+            $selection = $selection . ', instrumentTemp';
+        }
+    }
+
+    if (isset($_GET['coudeTemp'])){
+        if ($_GET['coudeTemp'] == 'True'){
+            $selection = $selection . ', coudeTemp';
+        }
+    }
+
+    if (isset($_GET['heaterSetpoint'])){
+        if ($_GET['heaterSetpoint'] == 'True'){
+            $selection = $selection . ', heaterSetpoint';
+        }
+    }
+
+    if (isset($_GET['barometer'])){
+        if ($_GET['barometer'] == 'True'){
+            $selection = $selection . ', barometer';
+        }
+    }
+
+    if (isset($_GET['echellePressure'])){
+        if ($_GET['echellePressure'] == 'True'){
+            $selection = $selection . ', echellePressure';
+        }
+    }
+
+    if (isset($_GET['ccdTemp'])){
+        if ($_GET['ccdTemp'] == 'True'){
+            $selection = $selection . ', ccdTemp';
+        }
+    }
+
+    if (isset($_GET['neckTemp'])){
+        if ($_GET['neckTemp'] == 'True'){
+            $selection = $selection . ', neckTemp';
+        }
+    }
+
+    if (isset($_GET['ccdSetpoint'])){
+        if ($_GET['ccdSetpoint'] == 'True'){
+            $selection = $selection . ', ccdSetpoint';
+        }
+    }
+
+    //echo $selection;
 
     if ($smplRate =='Smpl-Daily') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 3 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
+        SELECT " . $selection . " FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 3 AND HOUR(sampleTime) < 1  ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-Hourly') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 3 ORDER BY sampleTime ASC;
+        SELECT " . $selection . " FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' AND MINUTE(sampleTime) < 3 ORDER BY sampleTime ASC;
         ";   
     }
 
     if ($smplRate =='Smpl-All') {
         $myquery = "
-        SELECT sampleTime as date, gratingTemp, tableCenterTemp, enclosureTemp, iodineCellTemp, enclosureSetpoint, iodineCellSetpoint, enclosureTemp2, tableTempLow, structureTemp, instrumentSetpoint, instrumentTemp, coudeTemp, heaterSetpoint, barometer, echellePressure, ccdTemp, neckTemp, ccdSetpoint FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' ORDER BY sampleTime ASC;
+        SELECT " . $selection . " FROM environ WHERE sampleTime > '" . $begDate . "' AND sampleTime < '" . $endDate . "' ORDER BY sampleTime ASC;
         ";   
     }
 
