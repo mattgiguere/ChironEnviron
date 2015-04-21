@@ -391,9 +391,18 @@ function brushed() {
     focus.select(".area").attr("d", area);
     focus.select(".x.axis").call(xAxis);
 
-    focuscircgrp.selectAll(".dot")
+    mytemps.forEach(function(tempKey) {
+
+      //console.log(tempKey);
+      var newdots = focuscircgrp
+        .selectAll(dotClassMap[tempKey])
+        .attr('cx', function(d) { return xScale(d.date); })
+        .attr('cy', function(d) { return yScale(d[tempKey]); });
+    });
+
+/*    focuscircgrp.selectAll(".dot")
         .attr("cx", function(d) { return xScale(d.date); })
-        .attr("cy", function(d) { return yScale(d.gratingTemp); });
+        .attr("cy", function(d) { return yScale(d.gratingTemp); }); */
 }
 
 function type(d) {
